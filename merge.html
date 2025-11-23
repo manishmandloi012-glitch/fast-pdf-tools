@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge PDF - Fast PDF Tools</title>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+ </head>
+ <body class="min-h-full bg-gray-50">
+   <header class="py-6 px-8 bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-2xl font-bold text-blue-600">
+      <a href="index.html">FAST PDF TOOLS</a>
+     </div>
+    </div>
+   </header>
+
+   <main class="flex-1 flex items-center justify-center px-8 py-16">
+    <div class="w-full max-w-2xl">
+     <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Merge PDF Files</h1>
+        <p class="text-gray-500">Combine multiple PDFs into one file</p>
+     </div>
+
+     <div id="upload-box" class="p-16 rounded-2xl cursor-pointer text-center bg-white border-dashed border-2 border-slate-300 hover:border-blue-500 transition-colors">
+      <div class="mb-6 flex justify-center text-blue-500">
+       <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+      </div>
+      <h2 class="text-2xl font-semibold mb-3 text-slate-800">Select PDF Files</h2>
+      <button class="bg-blue-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow-lg hover:bg-blue-700 transition">Choose PDFs</button>
+      <input type="file" id="file-input" accept=".pdf" multiple style="display: none;">
+     </div>
+
+     <div id="file-list" class="mt-6 hidden">
+      <div class="p-6 rounded-xl bg-white shadow-sm">
+       <h3 class="text-xl font-semibold mb-4 text-slate-800">Files to Merge</h3>
+       <div id="files-container" class="mb-6 space-y-2"></div>
+       
+       <button id="merge-btn" class="w-full bg-blue-600 text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-blue-700 transition">
+         Merge PDFs Now
+       </button>
+       <p id="status-text" class="text-center mt-3 text-gray-500 font-medium"></p>
+      </div>
+     </div>
+    </div>
+   </main>
+
+  <script>
+    const uploadBox = document.getElementById('upload-box');
+    const fileInput = document.getElementById('file-input');
+    const fileList = document.getElementById('file-list');
+    const filesContainer = document.getElementById('files-container');
+    const mergeBtn = document.getElementById('merge-btn');
+    const statusText = document.getElementById('status-text');
+
+    uploadBox.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            filesContainer.innerHTML = '';
+            fileList.classList.remove('hidden');
+            Array.from(e.target.files).forEach((file) => {
+                const item = document.createElement('div');
+                item.className = 'p-3 bg-slate-50 rounded border border-slate-200 text-gray-700 flex justify-between items-center';
+                item.innerHTML = `<span>${file.name}</span> <span class="text-xs text-gray-400">PDF</span>`;
+                filesContainer.appendChild(item);
+            });
+        }
+    });
+
+    mergeBtn.addEventListener('click', async () => {
+        const { PDFDocument } = PDFLib;
+        if (fileInput.files.length < 2) return alert("Please select at least 2 PDF files!");
+
+        statusText.innerText = "Merging... Please wait.";
+        mergeBtn.disabled = true;
+        mergeBtn.classList.add('opacity-50');
+
+        try {
+            const mergedPdf = await PDFDocument.create();
+
+            for (let i = 0; i < fileInput.files.length; i++) {
+                const file = fileInput.files[i];
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await PDFDocument.load(arrayBuffer);
+                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
+            }
+
+            const pdfBytes = await mergedPdf.save();
+            const blob = new Blob([pdfBytes], { type: "application/pdf" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "merged-document.pdf";
+            link.click();
+            
+            // SUCCESS STATE (No Redirect)
+            statusText.innerText = "Success! Merged PDF Downloaded.";
+            statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
+            mergeBtn.disabled = false;
+            mergeBtn.classList.remove('opacity-50');
+            mergeBtn.innerText = "Merge More Files";
+
+        } catch (error) {
+            console.error(error);
+            statusText.innerText = "Error! Try again.";
+            mergeBtn.disabled = false;
+        }
+    });
+  </script>
+ </body>
+</html>

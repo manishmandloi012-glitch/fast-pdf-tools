@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Split PDF - Fast PDF Tools</title>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+    
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
+        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl">
+            <a href="index.html">FAST PDF TOOLS</a>
+        </div>
+    </header>
+
+    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
+        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        </div>
+        <h1 class="text-3xl font-bold mb-2 text-gray-800">Split PDF</h1>
+        <p class="mb-6 text-gray-500">Extract specific pages from your PDF</p>
+        
+        <input type="file" id="fileInput" accept=".pdf" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-green-50 file:text-green-700 hover:file:bg-green-100"/>
+        
+        <div class="text-left mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Which pages to extract?</label>
+            <input type="text" id="pageNumbers" placeholder="e.g. 1, 3, 5 (Leave empty for all)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <p class="text-xs text-gray-400 mt-1">Enter page numbers separated by comma</p>
+        </div>
+
+        <button id="splitBtn" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700">Split & Download</button>
+        <p id="msg" class="mt-4 text-sm font-medium"></p>
+    </div>
+
+    <script>
+        document.getElementById('splitBtn').addEventListener('click', async () => {
+            const { PDFDocument } = PDFLib;
+            const file = document.getElementById('fileInput').files[0];
+            const pageInput = document.getElementById('pageNumbers').value;
+
+            if (!file) return alert('Select a PDF!');
+            
+            document.getElementById('msg').innerText = "Processing...";
+            const arrayBuffer = await file.arrayBuffer();
+            const pdfDoc = await PDFDocument.load(arrayBuffer);
+            
+            // Logic: Agar user ne number dale hain (e.g. 1,3)
+            if (pageInput.trim() !== "") {
+                const newPdf = await PDFDocument.create();
+                
+                // User input "1, 3" ko array [0, 2] banayenge (Kyunki computer 0 se ginta hai)
+                const pagesToCopy = pageInput.split(',')
+                    .map(num => parseInt(num.trim()) - 1)
+                    .filter(idx => idx >= 0 && idx < pdfDoc.getPageCount()); // Sirf valid pages
+
+                if(pagesToCopy.length === 0) return alert("Invalid page numbers!");
+
+                const copiedPages = await newPdf.copyPages(pdfDoc, pagesToCopy);
+                copiedPages.forEach(page => newPdf.addPage(page));
+
+                const pdfBytes = await newPdf.save();
+                downloadFile(pdfBytes, "extracted-pages.pdf");
+                
+            } else {
+                // Agar khali hai, toh har page alag file banega
+                const numberOfPages = pdfDoc.getPageCount();
+                for (let i = 0; i < numberOfPages; i++) {
+                    const newPdf = await PDFDocument.create();
+                    const [page] = await newPdf.copyPages(pdfDoc, [i]);
+                    newPdf.addPage(page);
+                    const pdfBytes = await newPdf.save();
+                    downloadFile(pdfBytes, `page-${i + 1}.pdf`);
+                }
+            }
+
+            document.getElementById('msg').innerText = "Success! Downloaded.";
+            document.getElementById('msg').className = "mt-4 text-green-600 font-bold text-xl";
+        });
+
+        function downloadFile(bytes, name) {
+            const blob = new Blob([bytes], { type: "application/pdf" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = name;
+            link.click();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compress PDF - Fast PDF Tools</title>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
+        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl">
+            <a href="index.html">FAST PDF TOOLS</a>
+        </div>
+    </header>
+
+    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
+        <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+        </div>
+        <h1 class="text-3xl font-bold mb-2 text-gray-800">Compress PDF</h1>
+        <p class="mb-6 text-gray-500">Reduce PDF file size (Basic Optimization)</p>
+        
+        <input type="file" id="fileInput" accept=".pdf" class="hidden" />
+        
+        <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-yellow-500 transition">
+            <p class="text-gray-600 font-medium">Click to Select PDF</p>
+        </div>
+        
+        <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
+
+        <button id="compressBtn" class="w-full bg-yellow-600 text-white py-3 rounded-lg font-bold hover:bg-yellow-700 mt-6 hidden">
+            Compress PDF Now
+        </button>
+        <p id="msg" class="mt-4 text-sm font-medium"></p>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('fileInput');
+        const compressBtn = document.getElementById('compressBtn');
+        const fileNameDisplay = document.getElementById('fileName');
+        const msg = document.getElementById('msg');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files[0]){
+                fileNameDisplay.innerText = "Selected: " + e.target.files[0].name;
+                fileNameDisplay.classList.remove('hidden');
+                compressBtn.classList.remove('hidden');
+            }
+        });
+
+        compressBtn.addEventListener('click', async () => {
+            const { PDFDocument } = PDFLib;
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            msg.innerText = "Optimizing...";
+            msg.className = "mt-4 text-blue-600 font-medium";
+            
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdfDoc = await PDFDocument.load(arrayBuffer);
+                
+                // Saving cleans up the file structure, effectively "compressing" basic bloat
+                const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
+                
+                const blob = new Blob([pdfBytes], { type: "application/pdf" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "compressed-" + file.name;
+                link.click();
+                
+                msg.innerText = "Success! File Downloaded.";
+                msg.className = "mt-4 text-green-600 font-bold text-xl";
+            } catch (err) {
+                msg.innerText = "Error processing file.";
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html>

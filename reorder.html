@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reorder Pages - Fast PDF Tools</title>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
+        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl">
+            <a href="index.html">FAST PDF TOOLS</a>
+        </div>
+    </header>
+
+    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
+        <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+        </div>
+        <h1 class="text-3xl font-bold mb-2 text-gray-800">Reorder Pages</h1>
+        <p class="mb-6 text-gray-500">Change the order of pages (e.g., 2, 1, 3)</p>
+        
+        <input type="file" id="fileInput" accept=".pdf" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"/>
+        
+        <div class="mb-4 text-left">
+            <label class="block text-gray-700 text-sm font-bold mb-2">New Page Order (comma separated):</label>
+            <input type="text" id="orderInput" placeholder="e.g. 3, 1, 2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <p class="text-xs text-gray-400 mt-1">Enter page numbers separated by comma</p>
+        </div>
+        
+        <button id="reorderBtn" class="w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700">Reorder & Download</button>
+        <p id="msg" class="mt-4 text-sm font-medium"></p>
+    </div>
+
+    <script>
+        document.getElementById('reorderBtn').addEventListener('click', async () => {
+            const { PDFDocument } = PDFLib;
+            const file = document.getElementById('fileInput').files[0];
+            const orderStr = document.getElementById('orderInput').value;
+            
+            if (!file || !orderStr) return alert('Select File and Enter Order!');
+            
+            document.getElementById('msg').innerText = "Processing...";
+            
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdfDoc = await PDFDocument.load(arrayBuffer);
+                const newPdf = await PDFDocument.create();
+                
+                // Parse input "1, 3, 2" -> [0, 2, 1] (Because code starts at 0)
+                const order = orderStr.split(',').map(n => parseInt(n.trim()) - 1);
+                
+                const copiedPages = await newPdf.copyPages(pdfDoc, order);
+                copiedPages.forEach(page => newPdf.addPage(page));
+                
+                const pdfBytes = await newPdf.save();
+                const blob = new Blob([pdfBytes], { type: "application/pdf" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "reordered.pdf";
+                link.click();
+                
+                document.getElementById('msg').innerText = "Success! Downloaded.";
+                document.getElementById('msg').className = "mt-4 text-green-600 font-bold";
+            } catch (err) {
+                console.error(err);
+                document.getElementById('msg').innerText = "Error! Check page numbers.";
+            }
+        });
+    </script>
+</body>
+</html>

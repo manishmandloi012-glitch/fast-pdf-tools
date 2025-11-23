@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF to JPG - Fast PDF Tools</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
+        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl"><a href="index.html">FAST PDF TOOLS</a></div>
+    </header>
+
+    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
+        <div class="w-16 h-16 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+        <h1 class="text-3xl font-bold mb-2 text-gray-800">PDF to JPG</h1>
+        <p class="mb-6 text-gray-500">Convert PDF pages to Images</p>
+        
+        <input type="file" id="fileInput" accept=".pdf" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100"/>
+        
+        <button id="convertBtn" class="w-full bg-teal-600 text-white py-3 rounded-lg font-bold hover:bg-teal-700">Convert to JPG</button>
+        <p id="msg" class="mt-4 text-sm font-medium"></p>
+        <div id="container" class="hidden"></div> </div>
+
+    <script>
+        document.getElementById('convertBtn').addEventListener('click', async () => {
+            const file = document.getElementById('fileInput').files[0];
+            if (!file) return alert('Select PDF!');
+            
+            const msg = document.getElementById('msg');
+            msg.innerText = "Processing pages...";
+            
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+            
+            for (let i = 1; i <= pdf.numPages; i++) {
+                msg.innerText = `Converting Page ${i}/${pdf.numPages}...`;
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: 1.5 });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+                
+                // Download Image
+                const imgData = canvas.toDataURL('image/jpeg');
+                const link = document.createElement('a');
+                link.href = imgData;
+                link.download = `page-${i}.jpg`;
+                link.click();
+            }
+            msg.innerText = "Success! All pages downloaded.";
+            msg.className = "mt-4 text-green-600 font-bold";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload - Fast PDF Tools</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+ </head>
+ <body class="min-h-full">
+  <div class="min-h-full flex flex-col" style="background-color: #f5f5f5;">
+   
+   <header class="py-6 px-8 bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-2xl font-bold text-blue-600">
+      <a href="index.html">FAST PDF TOOLS</a>
+     </div>
+    </div>
+   </header>
+
+   <main class="flex-1 flex items-center justify-center px-8 py-16">
+    <div class="w-full max-w-2xl">
+     
+     <div id="upload-box" class="p-16 rounded-2xl cursor-pointer text-center bg-white border-dashed border-2 border-slate-300 hover:border-blue-500 transition-colors">
+      <div class="mb-6 flex justify-center text-slate-400">
+       <svg class="w-24 h-24" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+      </div>
+      <h2 class="text-3xl font-semibold mb-3 text-slate-800">Drop Images here</h2>
+      <button class="bg-blue-600 text-white px-10 py-4 rounded-xl text-lg font-semibold shadow-lg hover:bg-blue-700 transition">Select Images</button>
+      <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
+     </div>
+
+     <div id="file-list" class="mt-6 hidden">
+      <div class="p-6 rounded-xl bg-white shadow-sm">
+       <h3 class="text-xl font-semibold mb-4 text-slate-800">Selected Files</h3>
+       <div id="files-container" class="mb-6"></div>
+       
+       <button id="convert-btn" class="w-full bg-green-500 text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-green-600 transition">
+         Convert to PDF Now
+       </button>
+       <p id="status-text" class="text-center mt-3 text-gray-500 font-medium"></p>
+      </div>
+     </div>
+
+    </div>
+   </main>
+  </div>
+
+  <script>
+    const uploadBox = document.getElementById('upload-box');
+    const fileInput = document.getElementById('file-input');
+    const fileList = document.getElementById('file-list');
+    const filesContainer = document.getElementById('files-container');
+    const convertBtn = document.getElementById('convert-btn');
+    const statusText = document.getElementById('status-text');
+
+    uploadBox.addEventListener('click', () => fileInput.click());
+    
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            filesContainer.innerHTML = '';
+            fileList.classList.remove('hidden'); 
+            Array.from(e.target.files).forEach((file) => {
+                const item = document.createElement('div');
+                item.className = 'p-3 mb-2 bg-slate-50 rounded text-slate-700 font-medium border border-slate-100';
+                item.textContent = file.name;
+                filesContainer.appendChild(item);
+            });
+        }
+    });
+
+    convertBtn.addEventListener('click', async () => {
+        const { jsPDF } = window.jspdf;
+        // Button Disable karo taaki double click na ho
+        convertBtn.disabled = true;
+        convertBtn.classList.add('opacity-50');
+        statusText.innerText = "Processing... Please wait.";
+        
+        const doc = new jsPDF();
+        for (let i = 0; i < fileInput.files.length; i++) {
+            const file = fileInput.files[i];
+            const imgData = await readFile(file);
+            const imgProps = doc.getImageProperties(imgData);
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            if (i > 0) doc.addPage();
+            doc.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        }
+
+        doc.save("converted.pdf");
+        
+        // SUCCESS STATE (No Redirect)
+        statusText.innerText = "Success! File Downloaded.";
+        statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
+        
+        convertBtn.disabled = false;
+        convertBtn.classList.remove('opacity-50');
+        convertBtn.innerText = "Convert More Files";
+    });
+
+    function readFile(file) {
+        return new Promise((r) => {
+            const reader = new FileReader();
+            reader.onload = (e) => r(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+  </script>
+ </body>
+</html>
