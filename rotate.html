@@ -2,68 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rotate PDF - Fast PDF Tools</title>
+    <title>Rotate PDF - Rotate Pages Online for Free</title>
+    <meta name="description" content="Rotate PDF pages 90, 180, or 270 degrees online. Permanently save the new orientation. Free, secure, and fast PDF rotator.">
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-gray-50 min-h-screen flex flex-col">
     
-    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
-        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl">
-            <a href="index.html">FAST PDF TOOLS</a>
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0 z-10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="font-bold text-blue-600 text-xl">
+                <a href="index.html">FAST PDF TOOLS</a>
+            </div>
+            <nav class="flex gap-8">
+                <a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
+            </nav>
         </div>
     </header>
 
-    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
-        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+    <main class="flex-grow flex flex-col items-center justify-center px-8 py-24">
+        <div class="w-full max-w-2xl">
+            
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold mb-2 text-gray-800">Rotate PDF</h1>
+                <p class="text-gray-500">Rotate PDF pages permanently</p>
+            </div>
+    
+            <div class="bg-white p-8 rounded-xl shadow-md text-center border border-gray-100">
+                <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </div>
+                
+                <input type="file" id="fileInput" accept=".pdf" class="hidden" />
+                
+                <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-indigo-500 transition bg-gray-50">
+                    <p class="text-gray-600 font-medium">Click to Select PDF</p>
+                </div>
+                
+                <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
+
+                <div id="controls" class="hidden mt-6 text-left">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Rotation Degrees:</label>
+                    <select id="rotationDegree" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="90">90° Clockwise (Right)</option>
+                        <option value="180">180° Upside Down</option>
+                        <option value="270">270° Counter-Clockwise (Left)</option>
+                    </select>
+                    
+                    <button id="rotateBtn" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 mt-4 transition shadow-md">
+                        Rotate & Download
+                    </button>
+                </div>
+                
+                <p id="msg" class="mt-4 text-sm font-medium"></p>
+            </div>
+
+            <div class="mt-16 prose max-w-none text-gray-600">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Rotate PDF Pages?</h2>
+                <ol class="list-decimal list-inside space-y-2 mb-8">
+                    <li>Upload your PDF file by clicking the box above.</li>
+                    <li>Select the rotation angle (90°, 180°, or 270°).</li>
+                    <li>Click the <strong>"Rotate & Download"</strong> button.</li>
+                    <li>The new file with the corrected orientation will download immediately.</li>
+                </ol>
+        
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use this tool?</h2>
+                <p class="mb-4">
+                    Scanned documents are often upside down or sideways. Our Rotate PDF tool fixes this permanently.
+                </p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Permanent Rotation:</strong> Unlike some viewers that only rotate the view, we save the file with the new orientation.</li>
+                    <li><strong>Privacy First:</strong> Your documents are processed in your browser, not on a server.</li>
+                </ul>
+            </div>
+
         </div>
-        <h1 class="text-3xl font-bold mb-2 text-gray-800">Rotate PDF</h1>
-        <p class="mb-6 text-gray-500">Rotate all pages permanently</p>
-        
-        <input type="file" id="fileInput" accept=".pdf" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"/>
-        
-        <div class="text-left mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Rotation Degrees:</label>
-            <select id="rotationDegree" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                <option value="90">90° Clockwise (Right)</option>
-                <option value="180">180° Upside Down</option>
-                <option value="270">270° Counter-Clockwise (Left)</option>
-            </select>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
+            <div class="mt-2 space-x-4 text-sm">
+                <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+                <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+            </div>
         </div>
-        
-        <button id="rotateBtn" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700">Rotate & Download</button>
-        <p id="msg" class="mt-4 text-sm font-medium"></p>
-    </div>
+    </footer>
 
     <script>
-        document.getElementById('rotateBtn').addEventListener('click', async () => {
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('fileInput');
+        const rotateBtn = document.getElementById('rotateBtn');
+        const fileNameDisplay = document.getElementById('fileName');
+        const controls = document.getElementById('controls');
+        const msg = document.getElementById('msg');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files[0]){
+                fileNameDisplay.innerText = "Selected: " + e.target.files[0].name;
+                fileNameDisplay.classList.remove('hidden');
+                controls.classList.remove('hidden');
+            }
+        });
+
+        rotateBtn.addEventListener('click', async () => {
             const { PDFDocument, degrees } = PDFLib;
-            const file = document.getElementById('fileInput').files[0];
+            const file = fileInput.files[0];
             const rotationVal = parseInt(document.getElementById('rotationDegree').value);
 
-            if (!file) return alert('Select a PDF!');
+            if (!file) return;
             
-            document.getElementById('msg').innerText = "Rotating...";
-            const arrayBuffer = await file.arrayBuffer();
-            const pdfDoc = await PDFDocument.load(arrayBuffer);
-            const pages = pdfDoc.getPages();
-            
-            pages.forEach(page => {
-                const currentRotation = page.getRotation().angle;
-                page.setRotation(degrees(currentRotation + rotationVal));
-            });
+            msg.innerText = "Rotating...";
+            msg.className = "mt-4 text-blue-600 font-medium";
+            rotateBtn.disabled = true;
+            rotateBtn.classList.add('opacity-50');
 
-            const pdfBytes = await pdfDoc.save();
-            const blob = new Blob([pdfBytes], { type: "application/pdf" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = `rotated-${rotationVal}-degrees.pdf`;
-            link.click();
-            
-            // NO REDIRECT - SUCCESS MSG ONLY
-            document.getElementById('msg').innerText = "Success! File Downloaded.";
-            document.getElementById('msg').className = "mt-4 text-green-600 font-bold text-xl";
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdfDoc = await PDFDocument.load(arrayBuffer);
+                const pages = pdfDoc.getPages();
+                
+                pages.forEach(page => {
+                    const currentRotation = page.getRotation().angle;
+                    page.setRotation(degrees(currentRotation + rotationVal));
+                });
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: "application/pdf" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = `rotated-${rotationVal}-degrees.pdf`;
+                link.click();
+                
+                msg.innerText = "Success! File Downloaded.";
+                msg.className = "mt-4 text-green-600 font-bold text-xl";
+                
+                rotateBtn.disabled = false;
+                rotateBtn.classList.remove('opacity-50');
+            } catch (err) {
+                console.error(err);
+                msg.innerText = "Error processing file.";
+                msg.className = "mt-4 text-red-600 font-medium";
+                rotateBtn.disabled = false;
+                rotateBtn.classList.remove('opacity-50');
+            }
         });
     </script>
 </body>
