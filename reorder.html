@@ -2,69 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reorder Pages - Fast PDF Tools</title>
+    <title>Reorder PDF Pages - Organize PDF Online</title>
+    <meta name="description" content="Reorder PDF pages online for free. Change the order of pages in your PDF document easily. Drag and drop logic supported via page numbers.">
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
-    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
-        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl">
-            <a href="index.html">FAST PDF TOOLS</a>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0 z-10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="font-bold text-blue-600 text-xl">
+                <a href="index.html">FAST PDF TOOLS</a>
+            </div>
+            <nav class="flex gap-8">
+                <a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
+            </nav>
         </div>
     </header>
 
-    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
-        <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+    <main class="flex-grow flex flex-col items-center justify-center px-8 py-24">
+        <div class="w-full max-w-2xl">
+            
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold mb-2 text-gray-800">Reorder PDF Pages</h1>
+                <p class="text-gray-500">Change the order of pages in your PDF</p>
+            </div>
+    
+            <div class="bg-white p-8 rounded-xl shadow-md text-center border border-gray-100">
+                <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                </div>
+                
+                <input type="file" id="fileInput" accept=".pdf" class="hidden" />
+                
+                <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-orange-500 transition bg-gray-50">
+                    <p class="text-gray-600 font-medium">Click to Select PDF</p>
+                </div>
+                
+                <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
+
+                <div id="controls" class="hidden mt-6 text-left">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">New Page Order (comma separated):</label>
+                    <input type="text" id="orderInput" placeholder="e.g. 3, 1, 2, 4" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <p class="text-xs text-gray-400 mt-1">Enter the page numbers in the order you want them. (e.g., To move page 3 to the front, type: 3, 1, 2...)</p>
+                    
+                    <button id="reorderBtn" class="w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700 mt-4 transition shadow-md">
+                        Reorder & Download
+                    </button>
+                </div>
+                
+                <p id="msg" class="mt-4 text-sm font-medium"></p>
+            </div>
+
+            <div class="mt-16 prose max-w-none text-gray-600">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Reorder PDF Pages?</h2>
+                <ol class="list-decimal list-inside space-y-2 mb-8">
+                    <li>Upload your PDF file using the box above.</li>
+                    <li>In the input box, type the <strong>new order of page numbers</strong>.</li>
+                    <li>For example, if your PDF has 3 pages and you want to reverse them, type: <strong>3, 2, 1</strong>.</li>
+                    <li>Click the <strong>"Reorder & Download"</strong> button.</li>
+                    <li>Your new PDF with the rearranged pages will be ready instantly.</li>
+                </ol>
+        
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Organize Your Documents</h2>
+                <p class="mb-4">
+                    Did you scan a document out of order? Use this tool to fix the sequence without expensive software. You can also use this to <strong>delete pages</strong> by simply omitting their numbers (e.g., typing "1, 3" will delete page 2).
+                </p>
+            </div>
+
         </div>
-        <h1 class="text-3xl font-bold mb-2 text-gray-800">Reorder Pages</h1>
-        <p class="mb-6 text-gray-500">Change the order of pages (e.g., 2, 1, 3)</p>
-        
-        <input type="file" id="fileInput" accept=".pdf" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"/>
-        
-        <div class="mb-4 text-left">
-            <label class="block text-gray-700 text-sm font-bold mb-2">New Page Order (comma separated):</label>
-            <input type="text" id="orderInput" placeholder="e.g. 3, 1, 2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <p class="text-xs text-gray-400 mt-1">Enter page numbers separated by comma</p>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
+            <div class="mt-2 space-x-4 text-sm">
+                <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+                <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+            </div>
         </div>
-        
-        <button id="reorderBtn" class="w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700">Reorder & Download</button>
-        <p id="msg" class="mt-4 text-sm font-medium"></p>
-    </div>
+    </footer>
 
     <script>
-        document.getElementById('reorderBtn').addEventListener('click', async () => {
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('fileInput');
+        const reorderBtn = document.getElementById('reorderBtn');
+        const fileNameDisplay = document.getElementById('fileName');
+        const controls = document.getElementById('controls');
+        const msg = document.getElementById('msg');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files[0]){
+                fileNameDisplay.innerText = "Selected: " + e.target.files[0].name;
+                fileNameDisplay.classList.remove('hidden');
+                controls.classList.remove('hidden');
+            }
+        });
+
+        reorderBtn.addEventListener('click', async () => {
             const { PDFDocument } = PDFLib;
-            const file = document.getElementById('fileInput').files[0];
+            const file = fileInput.files[0];
             const orderStr = document.getElementById('orderInput').value;
             
-            if (!file || !orderStr) return alert('Select File and Enter Order!');
+            if (!file || !orderStr) return alert('Please upload a file and enter page numbers!');
             
-            document.getElementById('msg').innerText = "Processing...";
+            msg.innerText = "Processing...";
+            msg.className = "mt-4 text-blue-600 font-medium";
+            reorderBtn.disabled = true;
+            reorderBtn.classList.add('opacity-50');
             
             try {
                 const arrayBuffer = await file.arrayBuffer();
                 const pdfDoc = await PDFDocument.load(arrayBuffer);
                 const newPdf = await PDFDocument.create();
                 
-                // Parse input "1, 3, 2" -> [0, 2, 1] (Because code starts at 0)
+                // Parse input "1, 3, 2" -> [0, 2, 1] (0-based index)
                 const order = orderStr.split(',').map(n => parseInt(n.trim()) - 1);
                 
-                const copiedPages = await newPdf.copyPages(pdfDoc, order);
+                // Validate
+                const maxPage = pdfDoc.getPageCount();
+                const validOrder = order.filter(n => n >= 0 && n < maxPage);
+
+                if (validOrder.length === 0) throw new Error("Invalid page numbers");
+
+                const copiedPages = await newPdf.copyPages(pdfDoc, validOrder);
                 copiedPages.forEach(page => newPdf.addPage(page));
                 
                 const pdfBytes = await newPdf.save();
                 const blob = new Blob([pdfBytes], { type: "application/pdf" });
                 const link = document.createElement("a");
                 link.href = URL.createObjectURL(blob);
-                link.download = "reordered.pdf";
+                link.download = "reordered-" + file.name;
                 link.click();
                 
-                document.getElementById('msg').innerText = "Success! Downloaded.";
-                document.getElementById('msg').className = "mt-4 text-green-600 font-bold";
+                msg.innerText = "Success! File Downloaded.";
+                msg.className = "mt-4 text-green-600 font-bold text-xl";
+                
+                reorderBtn.disabled = false;
+                reorderBtn.classList.remove('opacity-50');
             } catch (err) {
                 console.error(err);
-                document.getElementById('msg').innerText = "Error! Check page numbers.";
+                msg.innerText = "Error! Check your page numbers.";
+                msg.className = "mt-4 text-red-600 font-medium";
+                reorderBtn.disabled = false;
+                reorderBtn.classList.remove('opacity-50');
             }
         });
     </script>
