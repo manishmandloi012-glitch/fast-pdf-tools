@@ -2,60 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PDF to JPG - Fast PDF Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to JPG - Convert PDF to Images Online</title>
+    <meta name="description" content="Convert PDF pages to JPG images online for free. Extract high-quality images from your PDF document securely in your browser.">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
-    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
-        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl"><a href="index.html">FAST PDF TOOLS</a></div>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0 z-10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="font-bold text-blue-600 text-xl">
+                <a href="index.html">FAST PDF TOOLS</a>
+            </div>
+            <nav class="flex gap-8">
+                <a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
+            </nav>
+        </div>
     </header>
 
-    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
-        <div class="w-16 h-16 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+    <main class="flex-grow flex flex-col items-center justify-center px-8 py-24">
+        <div class="w-full max-w-2xl">
+            
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold mb-2 text-gray-800">PDF to JPG</h1>
+                <p class="text-gray-500">Convert PDF pages to Image files</p>
+            </div>
+    
+            <div class="bg-white p-8 rounded-xl shadow-md text-center border border-gray-100">
+                <div class="w-16 h-16 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                
+                <input type="file" id="fileInput" accept=".pdf" class="hidden" />
+                
+                <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-teal-500 transition bg-gray-50">
+                    <p class="text-gray-600 font-medium">Click to Select PDF</p>
+                </div>
+                
+                <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
+
+                <button id="convertBtn" class="w-full bg-teal-600 text-white py-3 rounded-lg font-bold hover:bg-teal-700 mt-6 hidden transition shadow-md">
+                    Convert to JPG
+                </button>
+                
+                <p id="msg" class="mt-4 text-sm font-medium"></p>
+            </div>
+
+            <div class="mt-16 prose max-w-none text-gray-600">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert PDF to JPG Images?</h2>
+                <ol class="list-decimal list-inside space-y-2 mb-8">
+                    <li>Click the box above to upload your PDF file.</li>
+                    <li>Once uploaded, click the <strong>"Convert to JPG"</strong> button.</li>
+                    <li>Our tool will process every page of your PDF.</li>
+                    <li>Each page will be downloaded instantly as a high-quality JPG image.</li>
+                </ol>
+        
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">High Quality Image Extraction</h2>
+                <p class="mb-4">
+                    Need to use a PDF page in a presentation or social media post? Convert it to an image easily.
+                </p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Full Resolution:</strong> We maintain the quality of your document during conversion.</li>
+                    <li><strong>Secure:</strong> Conversion happens in your browser. Your data is safe.</li>
+                    <li><strong>Free:</strong> Convert as many pages as you need.</li>
+                </ul>
+            </div>
+
         </div>
-        <h1 class="text-3xl font-bold mb-2 text-gray-800">PDF to JPG</h1>
-        <p class="mb-6 text-gray-500">Convert PDF pages to Images</p>
-        
-        <input type="file" id="fileInput" accept=".pdf" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100"/>
-        
-        <button id="convertBtn" class="w-full bg-teal-600 text-white py-3 rounded-lg font-bold hover:bg-teal-700">Convert to JPG</button>
-        <p id="msg" class="mt-4 text-sm font-medium"></p>
-        <div id="container" class="hidden"></div> </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
+            <div class="mt-2 space-x-4 text-sm">
+                <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+                <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        document.getElementById('convertBtn').addEventListener('click', async () => {
-            const file = document.getElementById('fileInput').files[0];
-            if (!file) return alert('Select PDF!');
-            
-            const msg = document.getElementById('msg');
-            msg.innerText = "Processing pages...";
-            
-            const arrayBuffer = await file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-            
-            for (let i = 1; i <= pdf.numPages; i++) {
-                msg.innerText = `Converting Page ${i}/${pdf.numPages}...`;
-                const page = await pdf.getPage(i);
-                const viewport = page.getViewport({ scale: 1.5 });
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const fileNameDisplay = document.getElementById('fileName');
+        const msg = document.getElementById('msg');
 
-                await page.render({ canvasContext: context, viewport: viewport }).promise;
-                
-                // Download Image
-                const imgData = canvas.toDataURL('image/jpeg');
-                const link = document.createElement('a');
-                link.href = imgData;
-                link.download = `page-${i}.jpg`;
-                link.click();
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files[0]){
+                fileNameDisplay.innerText = "Selected: " + e.target.files[0].name;
+                fileNameDisplay.classList.remove('hidden');
+                convertBtn.classList.remove('hidden');
             }
-            msg.innerText = "Success! All pages downloaded.";
-            msg.className = "mt-4 text-green-600 font-bold";
+        });
+
+        convertBtn.addEventListener('click', async () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            msg.innerText = "Processing pages...";
+            msg.className = "mt-4 text-blue-600 font-medium";
+            convertBtn.disabled = true;
+            convertBtn.classList.add('opacity-50');
+            
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    msg.innerText = `Converting Page ${i}/${pdf.numPages}...`;
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale: 2.0 }); // Higher scale for better quality
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    
+                    // Download Image
+                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                    const link = document.createElement('a');
+                    link.href = imgData;
+                    link.download = `${file.name}-page-${i}.jpg`;
+                    link.click();
+                }
+                
+                msg.innerText = "Success! All pages downloaded.";
+                msg.className = "mt-4 text-green-600 font-bold text-xl";
+                convertBtn.disabled = false;
+                convertBtn.classList.remove('opacity-50');
+
+            } catch (err) {
+                console.error(err);
+                msg.innerText = "Error processing file.";
+                msg.className = "mt-4 text-red-600 font-medium";
+                convertBtn.disabled = false;
+                convertBtn.classList.remove('opacity-50');
+            }
         });
     </script>
 </body>
