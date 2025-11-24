@@ -4,26 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Merge PDF - Fast PDF Tools</title>
+  <meta name="description" content="Merge multiple PDF files into one document online for free. No upload, secure and fast PDF merger tool.">
   <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
  </head>
- <body class="min-h-full bg-gray-50">
+ <body class="min-h-full bg-gray-50 flex flex-col">
+   
    <header class="py-6 px-8 bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
      <div class="text-2xl font-bold text-blue-600">
       <a href="index.html">FAST PDF TOOLS</a>
      </div>
+     <nav class="flex gap-8">
+        <a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
+     </nav>
     </div>
    </header>
 
-   <main class="flex-1 flex items-center justify-center px-8 py-16">
+   <main class="flex-grow flex flex-col items-center justify-center px-8 py-16">
     <div class="w-full max-w-2xl">
+     
      <div class="text-center mb-8">
         <h1 class="text-3xl font-bold text-gray-800">Merge PDF Files</h1>
-        <p class="text-gray-500">Combine multiple PDFs into one file</p>
+        <p class="text-gray-500">Combine multiple PDFs into one file instantly</p>
      </div>
 
-     <div id="upload-box" class="p-16 rounded-2xl cursor-pointer text-center bg-white border-dashed border-2 border-slate-300 hover:border-blue-500 transition-colors">
+     <div id="upload-box" class="p-16 rounded-2xl cursor-pointer text-center bg-white border-dashed border-2 border-slate-300 hover:border-blue-500 transition-colors shadow-sm">
       <div class="mb-6 flex justify-center text-blue-500">
        <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
       </div>
@@ -33,18 +39,51 @@
      </div>
 
      <div id="file-list" class="mt-6 hidden">
-      <div class="p-6 rounded-xl bg-white shadow-sm">
+      <div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100">
        <h3 class="text-xl font-semibold mb-4 text-slate-800">Files to Merge</h3>
-       <div id="files-container" class="mb-6 space-y-2"></div>
+       <div id="files-container" class="mb-6 space-y-2 max-h-60 overflow-y-auto"></div>
        
-       <button id="merge-btn" class="w-full bg-blue-600 text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-blue-700 transition">
+       <button id="merge-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-green-700 transition shadow-md">
          Merge PDFs Now
        </button>
        <p id="status-text" class="text-center mt-3 text-gray-500 font-medium"></p>
       </div>
      </div>
+
+     <div class="mt-20 prose max-w-none text-gray-600">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Merge PDF Files Online for Free?</h2>
+        <ol class="list-decimal list-inside space-y-2 mb-8">
+            <li>Click on the <strong>"Choose PDFs"</strong> button above.</li>
+            <li>Select all the PDF files you want to combine from your computer or mobile.</li>
+            <li>Review the list of files to ensure they are correct.</li>
+            <li>Click the <strong>"Merge PDFs Now"</strong> button.</li>
+            <li>Wait a moment, and your merged PDF will download automatically!</li>
+        </ol>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use Fast PDF Tools?</h2>
+        <p class="mb-4">
+            Our Merge PDF tool is designed for speed and privacy. Unlike other online services, 
+            <strong>we process your files directly in your browser</strong>. This means:
+        </p>
+        <ul class="list-disc list-inside space-y-2 pl-4">
+            <li><strong>100% Privacy:</strong> Your sensitive documents are never uploaded to any server.</li>
+            <li><strong>Super Fast:</strong> No waiting for uploads or downloads. It works instantly.</li>
+            <li><strong>Free forever:</strong> Merge as many files as you want without paying.</li>
+        </ul>
+     </div>
+
     </div>
    </main>
+
+   <footer class="bg-white border-t border-gray-200 py-8 mt-10">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
+        <div class="mt-2 space-x-4 text-sm">
+            <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+            <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+        </div>
+    </div>
+   </footer>
 
   <script>
     const uploadBox = document.getElementById('upload-box');
@@ -63,7 +102,7 @@
             Array.from(e.target.files).forEach((file) => {
                 const item = document.createElement('div');
                 item.className = 'p-3 bg-slate-50 rounded border border-slate-200 text-gray-700 flex justify-between items-center';
-                item.innerHTML = `<span>${file.name}</span> <span class="text-xs text-gray-400">PDF</span>`;
+                item.innerHTML = `<span class="truncate font-medium">${file.name}</span> <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">PDF</span>`;
                 filesContainer.appendChild(item);
             });
         }
@@ -74,6 +113,7 @@
         if (fileInput.files.length < 2) return alert("Please select at least 2 PDF files!");
 
         statusText.innerText = "Merging... Please wait.";
+        statusText.className = "text-center mt-3 text-blue-600 font-medium";
         mergeBtn.disabled = true;
         mergeBtn.classList.add('opacity-50');
 
@@ -95,7 +135,6 @@
             link.download = "merged-document.pdf";
             link.click();
             
-            // SUCCESS STATE (No Redirect)
             statusText.innerText = "Success! Merged PDF Downloaded.";
             statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
             mergeBtn.disabled = false;
@@ -104,8 +143,10 @@
 
         } catch (error) {
             console.error(error);
-            statusText.innerText = "Error! Try again.";
+            statusText.innerText = "Error processing file. Try again.";
+            statusText.className = "text-center mt-3 text-red-600 font-medium";
             mergeBtn.disabled = false;
+            mergeBtn.classList.remove('opacity-50');
         }
     });
   </script>
