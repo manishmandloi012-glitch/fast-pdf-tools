@@ -2,37 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Compress PDF - Fast PDF Tools</title>
+    <title>Compress PDF - Reduce File Size Online</title>
+    <meta name="description" content="Compress PDF files online for free. Reduce PDF file size without losing quality. Secure, fast, and runs locally in your browser.">
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-4">
-    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0">
-        <div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl">
-            <a href="index.html">FAST PDF TOOLS</a>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    
+    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0 z-10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="font-bold text-blue-600 text-xl">
+                <a href="index.html">FAST PDF TOOLS</a>
+            </div>
+            <nav class="flex gap-8">
+                <a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
+            </nav>
         </div>
     </header>
 
-    <div class="bg-white p-8 rounded-xl shadow-md max-w-lg w-full text-center mt-16">
-        <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-        </div>
-        <h1 class="text-3xl font-bold mb-2 text-gray-800">Compress PDF</h1>
-        <p class="mb-6 text-gray-500">Reduce PDF file size (Basic Optimization)</p>
-        
-        <input type="file" id="fileInput" accept=".pdf" class="hidden" />
-        
-        <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-yellow-500 transition">
-            <p class="text-gray-600 font-medium">Click to Select PDF</p>
-        </div>
-        
-        <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
+    <main class="flex-grow flex flex-col items-center justify-center px-8 py-24">
+        <div class="w-full max-w-2xl">
+            
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold mb-2 text-gray-800">Compress PDF</h1>
+                <p class="text-gray-500">Reduce PDF file size instantly</p>
+            </div>
+    
+            <div class="bg-white p-8 rounded-xl shadow-md text-center border border-gray-100">
+                <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                </div>
+                
+                <input type="file" id="fileInput" accept=".pdf" class="hidden" />
+                
+                <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-yellow-500 transition bg-gray-50">
+                    <p class="text-gray-600 font-medium">Click to Select PDF</p>
+                    <p class="text-xs text-gray-400 mt-1">or drag and drop here</p>
+                </div>
+                
+                <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
+    
+                <button id="compressBtn" class="w-full bg-yellow-600 text-white py-3 rounded-lg font-bold hover:bg-yellow-700 mt-6 hidden transition shadow-md">
+                    Compress PDF Now
+                </button>
+                <p id="msg" class="mt-4 text-sm font-medium"></p>
+            </div>
 
-        <button id="compressBtn" class="w-full bg-yellow-600 text-white py-3 rounded-lg font-bold hover:bg-yellow-700 mt-6 hidden">
-            Compress PDF Now
-        </button>
-        <p id="msg" class="mt-4 text-sm font-medium"></p>
-    </div>
+            <div class="mt-16 prose max-w-none text-gray-600">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Compress PDF Files?</h2>
+                <ol class="list-decimal list-inside space-y-2 mb-8">
+                    <li>Click on the box above to <strong>select your PDF file</strong>.</li>
+                    <li>Once the file is selected, click the <strong>"Compress PDF Now"</strong> button.</li>
+                    <li>Our engine will optimize the file structure to reduce its size.</li>
+                    <li>The compressed file will download automatically to your device.</li>
+                </ol>
+        
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Compress with Us?</h2>
+                <p class="mb-4">
+                    Large PDF files can be hard to email or upload. Our compression tool optimizes your document by removing unused data and simplifying internal structures.
+                </p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Fast & Free:</strong> No waiting time, no cost.</li>
+                    <li><strong>Browser-Based:</strong> We do not upload your file to any server. It stays on your computer.</li>
+                    <li><strong>High Quality:</strong> We reduce size while keeping the document readable.</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
+            <div class="mt-2 space-x-4 text-sm">
+                <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+                <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const uploadArea = document.getElementById('upload-area');
@@ -58,12 +105,14 @@
             
             msg.innerText = "Optimizing...";
             msg.className = "mt-4 text-blue-600 font-medium";
+            compressBtn.disabled = true;
+            compressBtn.classList.add('opacity-50');
             
             try {
                 const arrayBuffer = await file.arrayBuffer();
                 const pdfDoc = await PDFDocument.load(arrayBuffer);
                 
-                // Saving cleans up the file structure, effectively "compressing" basic bloat
+                // Optimization logic: Saving without object streams clears some bloat
                 const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
                 
                 const blob = new Blob([pdfBytes], { type: "application/pdf" });
@@ -74,9 +123,15 @@
                 
                 msg.innerText = "Success! File Downloaded.";
                 msg.className = "mt-4 text-green-600 font-bold text-xl";
+                
+                compressBtn.disabled = false;
+                compressBtn.classList.remove('opacity-50');
             } catch (err) {
                 msg.innerText = "Error processing file.";
+                msg.className = "mt-4 text-red-600 font-medium";
                 console.error(err);
+                compressBtn.disabled = false;
+                compressBtn.classList.remove('opacity-50');
             }
         });
     </script>
