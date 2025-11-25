@@ -73,4 +73,96 @@
             <div class="mt-16 prose max-w-none text-gray-600 no-print">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert Word to PDF Online?</h2>
                 <ol class="list-decimal list-inside space-y-2 mb-8">
-                    <li>Upload your <strong>Word document (.docx)</strong>
+                    <li>Upload your <strong>Word document (.docx)</strong> using the box above.</li>
+                    <li>Our tool will generate a <strong>Preview</strong> of your document instantly.</li>
+                    <li>Check the preview to ensure the text looks correct.</li>
+                    <li>Click the <strong>"Download PDF"</strong> button to save the new file.</li>
+                </ol>
+        
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Browser-Based Conversion</h2>
+                <p class="mb-4">
+                    Convert your documents without installing bulky software like Microsoft Office.
+                </p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Privacy:</strong> Your document is converted right here in your browser. We don't see it.</li>
+                    <li><strong>Simple & Fast:</strong> Perfect for text-heavy documents, resumes, and letters.</li>
+                    <li><strong>Free:</strong> Unlimited conversions for everyone.</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto no-print">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
+            <div class="mt-2 space-x-4 text-sm">
+                <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+                <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('fileInput');
+        const previewContainer = document.getElementById('preview-container');
+        const msg = document.getElementById('msg');
+        const actionButtons = document.getElementById('action-buttons');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const fileNameDisplay = document.getElementById('fileName');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            fileNameDisplay.innerText = "Selected: " + file.name;
+            fileNameDisplay.classList.remove('hidden');
+            msg.innerText = "Reading document...";
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const arrayBuffer = event.target.result;
+                mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+                .then(displayResult)
+                .catch(handleError);
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        function displayResult(result) {
+            previewContainer.innerHTML = result.value;
+            previewContainer.style.display = "block";
+            actionButtons.classList.remove('hidden');
+            actionButtons.classList.add('flex');
+            msg.innerText = "Preview generated. Click Download below.";
+            msg.className = "mt-2 text-sm font-bold text-green-600";
+        }
+
+        function handleError(err) {
+            console.log(err);
+            msg.innerText = "Error reading file. Make sure it is a valid .docx";
+            msg.className = "mt-2 text-sm font-bold text-red-600";
+        }
+
+        downloadBtn.addEventListener('click', () => {
+            msg.innerText = "Generating PDF...";
+            
+            const element = document.getElementById('preview-container');
+            const opt = {
+                margin:       10,
+                filename:     'converted-document.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                msg.innerText = "Success! PDF Downloaded.";
+            });
+        });
+    </script>
+</body>
+</html>
