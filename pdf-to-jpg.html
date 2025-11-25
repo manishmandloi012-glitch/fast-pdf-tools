@@ -66,7 +66,6 @@
                 <ul class="list-disc list-inside space-y-2 pl-4">
                     <li><strong>Full Resolution:</strong> We maintain the quality of your document during conversion.</li>
                     <li><strong>Secure:</strong> Conversion happens in your browser. Your data is safe.</li>
-                    <li><strong>Free:</strong> Convert as many pages as you need.</li>
                 </ul>
             </div>
 
@@ -96,55 +95,3 @@
             if(e.target.files[0]){
                 fileNameDisplay.innerText = "Selected: " + e.target.files[0].name;
                 fileNameDisplay.classList.remove('hidden');
-                convertBtn.classList.remove('hidden');
-            }
-        });
-
-        convertBtn.addEventListener('click', async () => {
-            const file = fileInput.files[0];
-            if (!file) return;
-            
-            msg.innerText = "Processing pages...";
-            msg.className = "mt-4 text-blue-600 font-medium";
-            convertBtn.disabled = true;
-            convertBtn.classList.add('opacity-50');
-            
-            try {
-                const arrayBuffer = await file.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-                
-                for (let i = 1; i <= pdf.numPages; i++) {
-                    msg.innerText = `Converting Page ${i}/${pdf.numPages}...`;
-                    const page = await pdf.getPage(i);
-                    const viewport = page.getViewport({ scale: 2.0 }); // Higher scale for better quality
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    await page.render({ canvasContext: context, viewport: viewport }).promise;
-                    
-                    // Download Image
-                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
-                    const link = document.createElement('a');
-                    link.href = imgData;
-                    link.download = `${file.name}-page-${i}.jpg`;
-                    link.click();
-                }
-                
-                msg.innerText = "Success! All pages downloaded.";
-                msg.className = "mt-4 text-green-600 font-bold text-xl";
-                convertBtn.disabled = false;
-                convertBtn.classList.remove('opacity-50');
-
-            } catch (err) {
-                console.error(err);
-                msg.innerText = "Error processing file.";
-                msg.className = "mt-4 text-red-600 font-medium";
-                convertBtn.disabled = false;
-                convertBtn.classList.remove('opacity-50');
-            }
-        });
-    </script>
-</body>
-</html>
