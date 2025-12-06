@@ -15,49 +15,59 @@
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      .tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
-      .tool-card { transition: all 0.2s ease; }
-    </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
     
     <header class="py-5 px-8 bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="text-2xl font-bold text-blue-600"><a href="index.html">FAST PDF TOOLS</a></div>
-            <nav class="flex gap-6">
-                <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium">Home (PDF Tools)</a>
+            
+            <nav class="flex items-center gap-8">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-base font-medium text-blue-600 font-bold focus:outline-none">
+                        More Products
+                        <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute right-0 top-full mt-2 w-56 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
+                        <div class="py-2">
+                            <a href="products.html" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">📂 All Products</a>
+                            <div class="border-t border-gray-100"></div>
+                            <a href="#image-tools" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">🖼️ Image Tools</a>
+                            <a href="#resume-tools" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">📄 Resume Builder</a>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
     <main class="flex-grow max-w-7xl mx-auto px-8 py-16">
-        <h1 class="text-4xl font-bold text-center mb-4 text-gray-900">More Useful Tools</h1>
-        <p class="text-center text-gray-500 mb-12 text-lg">Image Editors, Resume Builders & Business Tools</p>
+        <h1 class="text-4xl font-bold text-center mb-12 text-gray-900">More Useful Tools</h1>
 
-        <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Image Tools</h2>
+        <h2 id="image-tools" class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2 pt-8">Image Tools</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <a href="image-tools/image-compressor.html" class="tool-card bg-white p-6 rounded-xl shadow block">
+            <a href="image-tools/image-compressor.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
                 <h3 class="font-bold text-lg text-pink-600">Image Compressor</h3>
                 <p class="text-sm text-gray-500">Reduce image size</p>
             </a>
-            <a href="image-tools/jpg-to-png.html" class="tool-card bg-white p-6 rounded-xl shadow block">
+            <a href="image-tools/jpg-to-png.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
                 <h3 class="font-bold text-lg text-pink-600">JPG to PNG</h3>
                 <p class="text-sm text-gray-500">Convert format</p>
             </a>
-            <a href="image-tools/image-cropper.html" class="tool-card bg-white p-6 rounded-xl shadow block">
+            <a href="image-tools/image-cropper.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
                 <h3 class="font-bold text-lg text-pink-600">Image Cropper</h3>
-                <p class="text-sm text-gray-500">Crop pictures</p>
+                <p class="text-sm text-gray-500">Crop photos</p>
             </a>
         </div>
 
-        <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Resume & Business</h2>
+        <h2 id="resume-tools" class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2 pt-8">Resume & Business</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="resume-tools/resume-builder.html" class="tool-card bg-white p-6 rounded-xl shadow block">
+            <a href="resume-tool/resume-builder.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
                 <h3 class="font-bold text-lg text-blue-600">Resume Builder</h3>
                 <p class="text-sm text-gray-500">Create CV & Download</p>
             </a>
-            <a href="resume-tools/invoice-generator.html" class="tool-card bg-white p-6 rounded-xl shadow block">
+            <a href="resume-tool/invoice-generator.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
                 <h3 class="font-bold text-lg text-blue-600">Invoice Generator</h3>
                 <p class="text-sm text-gray-500">Make PDF Bills</p>
             </a>
