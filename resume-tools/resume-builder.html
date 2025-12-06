@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Resume Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Resume Builder - Create Custom CV Online</title>
+    <meta name="description" content="Build a fully customizable professional resume online. Change colors, fonts, and add unlimited experience/education sections. Download as PDF for free.">
     <link rel="icon" type="image/png" href="../logo.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,39 +18,238 @@
       gtag('config', 'G-617N8QHJRJ');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+
+    <style>
+        .a4-page { 
+            width: 210mm; 
+            min-height: 297mm; 
+            background: white; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+            margin: 0 auto;
+            color: #333;
+        }
+        /* Printable content padding handling */
+        .resume-content { padding: 10mm 15mm; }
+        .editable:empty:before {
+            content: attr(placeholder);
+            color: #aaa;
+            display: block; /* For Firefox */
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
+    
     <header class="bg-white shadow-sm py-4 px-8 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="../index.html" class="text-2xl font-bold text-blue-600">FAST PDF TOOLS</a>
-            <a href="../products.html" class="text-blue-600 font-bold">Back to Products</a>
+            <div class="flex gap-4 items-center">
+                <a href="../products.html?cat=resume" class="text-gray-600 hover:text-blue-600 font-medium hidden md:block">Back to Tools</a>
+                <button onclick="downloadPDF()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700 shadow-md">Download PDF</button>
+            </div>
         </div>
     </header>
-    <main class="flex-grow flex flex-col md:flex-row gap-8 p-4 md:p-8">
-        <div class="w-full md:w-1/3 bg-white p-6 rounded-xl shadow-md h-fit">
-            <h2 class="text-xl font-bold mb-4">Edit Details</h2>
-            <input type="text" id="nameIn" class="w-full border p-2 rounded mb-2" placeholder="Full Name" oninput="updateCV()">
-            <input type="text" id="jobIn" class="w-full border p-2 rounded mb-2" placeholder="Job Title" oninput="updateCV()">
-            <button onclick="downloadPDF()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold mt-4 hover:bg-blue-700">Download PDF</button>
+
+    <main class="flex-grow flex flex-col md:flex-row gap-6 p-4 md:p-8 max-w-[1600px] mx-auto w-full">
+        
+        <div class="w-full md:w-1/3 bg-white p-6 rounded-xl shadow-md h-[85vh] overflow-y-auto border border-gray-200 custom-scrollbar">
+            
+            <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">1. Customize Design</h2>
+            
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Theme Color</label>
+                    <input type="color" id="colorPicker" value="#2563eb" class="w-full h-10 cursor-pointer rounded" oninput="changeTheme(this.value)">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Font Size</label>
+                    <input type="range" min="12" max="18" value="14" class="w-full mt-2" oninput="changeFontSize(this.value)">
+                </div>
+            </div>
+
+            <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 mt-8">2. Resume Details</h2>
+            <p class="text-xs text-gray-500 mb-4">Tip: You can also type directly inside the preview on the right!</p>
+
+            <div class="space-y-4">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-gray-700 mb-2">Personal Info</h3>
+                    <input type="text" class="w-full border p-2 rounded mb-2" placeholder="Full Name" oninput="syncText('name', this.value)">
+                    <input type="text" class="w-full border p-2 rounded mb-2" placeholder="Job Title (e.g. Designer)" oninput="syncText('job', this.value)">
+                    <input type="text" class="w-full border p-2 rounded mb-2" placeholder="Phone" oninput="syncText('phone', this.value)">
+                    <input type="text" class="w-full border p-2 rounded mb-2" placeholder="Email" oninput="syncText('email', this.value)">
+                    <input type="text" class="w-full border p-2 rounded mb-2" placeholder="Address / Location" oninput="syncText('location', this.value)">
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-gray-700 mb-2">Professional Summary</h3>
+                    <textarea class="w-full border p-2 rounded" rows="4" placeholder="Write 2-3 lines about yourself..." oninput="syncText('summary', this.value)"></textarea>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-gray-700 mb-2">Skills</h3>
+                    <textarea class="w-full border p-2 rounded" rows="2" placeholder="HTML, CSS, Management (Comma separated)" oninput="syncText('skills', this.value)"></textarea>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-gray-700">Experience</h3>
+                        <button onclick="addExperience()" class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded hover:bg-blue-200">+ Add Job</button>
+                    </div>
+                    <div id="exp-inputs" class="space-y-2">
+                        </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-gray-700">Education</h3>
+                        <button onclick="addEducation()" class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded hover:bg-blue-200">+ Add School</button>
+                    </div>
+                    <div id="edu-inputs" class="space-y-2">
+                        </div>
+                </div>
+            </div>
         </div>
-        <div class="w-full md:w-2/3 flex justify-center">
-            <div id="resume" class="bg-white w-[210mm] min-h-[297mm] p-[20mm] shadow-lg text-gray-800">
-                <h1 id="nameOut" class="text-4xl font-bold uppercase border-b-2 border-black pb-2">Your Name</h1>
-                <p id="jobOut" class="text-xl mt-2 font-medium">Job Title</p>
+
+        <div class="w-full md:w-2/3 flex justify-center bg-gray-200 p-4 rounded-xl overflow-auto">
+            <div id="resume-preview" class="a4-page relative">
+                <div class="resume-content">
+                    <div class="border-b-4 pb-4 mb-6 theme-border" style="border-color: #2563eb;">
+                        <h1 id="out-name" class="text-4xl font-bold uppercase tracking-wide text-gray-900" contenteditable="true">Your Name</h1>
+                        <p id="out-job" class="text-xl font-medium mt-1 theme-text" style="color: #2563eb;" contenteditable="true">Professional Title</p>
+                        
+                        <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-3">
+                            <span id="out-email" contenteditable="true">email@example.com</span>
+                            <span>•</span>
+                            <span id="out-phone" contenteditable="true">+91 98765 43210</span>
+                            <span>•</span>
+                            <span id="out-location" contenteditable="true">City, Country</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-2 border-b">Profile</h3>
+                        <p id="out-summary" class="text-sm leading-relaxed text-gray-700" contenteditable="true">
+                            A highly motivated professional with experience in management and creative problem solving. Experienced in building web applications and leading teams.
+                        </p>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-2 border-b">Skills</h3>
+                        <p id="out-skills" class="text-sm leading-relaxed text-gray-700 font-medium" contenteditable="true">
+                            Project Management, Communication, Web Development, Team Leadership
+                        </p>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b">Work Experience</h3>
+                        <div id="experience-list" class="space-y-4">
+                            <div class="exp-item">
+                                <div class="flex justify-between items-baseline">
+                                    <h4 class="font-bold text-gray-800 text-lg" contenteditable="true">Senior Manager</h4>
+                                    <span class="text-sm text-gray-500" contenteditable="true">2022 - Present</span>
+                                </div>
+                                <p class="text-blue-600 font-medium text-sm theme-text" contenteditable="true">Company Name Ltd.</p>
+                                <ul class="list-disc list-inside text-sm text-gray-700 mt-1" contenteditable="true">
+                                    <li>Managed a team of 10 people to execute projects.</li>
+                                    <li>Increased productivity by 20% using new tools.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b">Education</h3>
+                        <div id="education-list" class="space-y-4">
+                            <div class="edu-item">
+                                <div class="flex justify-between items-baseline">
+                                    <h4 class="font-bold text-gray-800" contenteditable="true">Bachelor of Business Administration</h4>
+                                    <span class="text-sm text-gray-500" contenteditable="true">2025 - 2028</span>
+                                </div>
+                                <p class="text-sm text-gray-600" contenteditable="true">Dayanand College, Ujjain</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </main>
-    <footer class="bg-white border-t py-8 text-center text-gray-500">
+
+    <footer class="bg-white border-t py-8 text-center text-gray-500 mt-auto">
         <p>&copy; 2025 Fast PDF Tools.</p>
+        <div class="mt-2 space-x-4 text-sm">
+            <a href="../privacy.html" class="hover:text-blue-600">Privacy</a>
+            <a href="../terms.html" class="hover:text-blue-600">Terms</a>
+        </div>
     </footer>
+
     <script>
-        function updateCV() {
-            document.getElementById('nameOut').innerText = document.getElementById('nameIn').value || 'Your Name';
-            document.getElementById('jobOut').innerText = document.getElementById('jobIn').value || 'Job Title';
+        // Real-time Text Sync
+        function syncText(id, value) {
+            document.getElementById('out-' + id).innerText = value;
         }
+
+        // Change Theme Color
+        function changeTheme(color) {
+            const elements = document.querySelectorAll('.theme-text');
+            elements.forEach(el => el.style.color = color);
+            
+            const borders = document.querySelectorAll('.theme-border');
+            borders.forEach(el => el.style.borderColor = color);
+        }
+
+        // Change Font Size
+        function changeFontSize(size) {
+            document.getElementById('resume-preview').style.fontSize = size + 'px';
+        }
+
+        // Add Experience Dynamically
+        function addExperience() {
+            const container = document.getElementById('experience-list');
+            const div = document.createElement('div');
+            div.className = 'exp-item mt-4';
+            div.innerHTML = `
+                <div class="flex justify-between items-baseline">
+                    <h4 class="font-bold text-gray-800 text-lg" contenteditable="true">Job Position</h4>
+                    <span class="text-sm text-gray-500" contenteditable="true">Year - Year</span>
+                </div>
+                <p class="text-blue-600 font-medium text-sm theme-text" contenteditable="true">Company Name</p>
+                <p class="text-sm text-gray-700 mt-1" contenteditable="true">Describe your role and achievements here...</p>
+            `;
+            container.appendChild(div);
+            
+            // Re-apply current theme color to new element
+            const color = document.getElementById('colorPicker').value;
+            changeTheme(color);
+        }
+
+        // Add Education Dynamically
+        function addEducation() {
+            const container = document.getElementById('education-list');
+            const div = document.createElement('div');
+            div.className = 'edu-item mt-4';
+            div.innerHTML = `
+                <div class="flex justify-between items-baseline">
+                    <h4 class="font-bold text-gray-800" contenteditable="true">Degree / Course</h4>
+                    <span class="text-sm text-gray-500" contenteditable="true">Year</span>
+                </div>
+                <p class="text-sm text-gray-600" contenteditable="true">College / School Name</p>
+            `;
+            container.appendChild(div);
+        }
+
+        // Download PDF
         function downloadPDF() {
-            const element = document.getElementById('resume');
-            html2pdf().from(element).save('resume.pdf');
+            const element = document.getElementById('resume-preview');
+            
+            const opt = {
+                margin: 0,
+                filename: 'my-resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
         }
     </script>
 </body>
