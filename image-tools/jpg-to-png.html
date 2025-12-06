@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JPG to PNG Converter</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-617N8QHJRJ');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    <header class="bg-white shadow-sm py-4 px-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-blue-600">FAST PDF TOOLS</a>
+            <a href="../products.html" class="text-blue-600 font-bold">Back to Products</a>
+        </div>
+    </header>
+    <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-12">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">JPG to PNG</h1>
+            <p class="text-gray-500">Convert format in 1 click</p>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200 text-center">
+            <input type="file" id="fileInput" accept="image/jpeg, image/jpg" class="hidden">
+            <button onclick="document.getElementById('fileInput').click()" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700">Select JPG Image</button>
+            <p id="status" class="mt-4 text-sm text-gray-600"></p>
+            <a id="downloadBtn" class="hidden inline-block mt-4 bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700">Download PNG</a>
+        </div>
+    </main>
+    <footer class="bg-white border-t py-8 text-center text-gray-500">
+        <p>&copy; 2025 Fast PDF Tools.</p>
+    </footer>
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            document.getElementById('status').innerText = "Converting...";
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const pngUrl = canvas.toDataURL('image/png');
+                    const btn = document.getElementById('downloadBtn');
+                    btn.href = pngUrl;
+                    btn.download = file.name.replace(/\.(jpg|jpeg)$/i, '') + '.png';
+                    btn.classList.remove('hidden');
+                    document.getElementById('status').innerText = "Done! Download below.";
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
