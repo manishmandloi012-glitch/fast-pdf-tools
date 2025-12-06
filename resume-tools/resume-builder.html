@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Resume Builder - Free & Customizable</title>
-    <meta name="description" content="Create a professional resume with AI assistance. Fully customizable like MS Word. Download PDF for free.">
+    <title>Pro Resume Builder - Fully Customizable</title>
+    <meta name="description" content="Build a fully customizable professional resume online. Add unlimited custom sections. Download as PDF for free. No signup required.">
     <link rel="icon" type="image/png" href="../logo.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,7 +33,7 @@
         }
         .resume-content { padding: 15mm; height: 100%; }
         
-        /* Word-like Editing Focus */
+        /* Edit Mode Styles */
         [contenteditable]:focus {
             outline: 2px dashed #3b82f6;
             background-color: #eff6ff;
@@ -72,34 +72,16 @@
         <div class="w-full lg:w-1/4 space-y-6">
             
             <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
-                <h2 class="text-lg font-bold text-purple-600 flex items-center gap-2 mb-3">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    AI Writing Assistant
-                </h2>
-                <p class="text-xs text-gray-500 mb-3">Select your role to auto-generate a professional summary.</p>
-                <select id="aiRole" class="w-full border p-2 rounded text-sm mb-3">
-                    <option value="student">Student / Fresher</option>
-                    <option value="developer">Software Developer</option>
-                    <option value="manager">Business Manager</option>
-                    <option value="designer">Graphic Designer</option>
-                    <option value="teacher">Teacher / Educator</option>
-                </select>
-                <button onclick="useAI()" class="w-full bg-purple-100 text-purple-700 py-2 rounded-lg font-bold text-sm hover:bg-purple-200 transition">
-                    ✨ Auto-Write Summary
-                </button>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Design & Formatting</h2>
                 
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-gray-500 mb-1">Theme Color</label>
                     <div class="flex gap-2">
-                        <button onclick="changeColor('#2563eb')" class="w-6 h-6 rounded-full bg-blue-600"></button>
-                        <button onclick="changeColor('#dc2626')" class="w-6 h-6 rounded-full bg-red-600"></button>
-                        <button onclick="changeColor('#16a34a')" class="w-6 h-6 rounded-full bg-green-600"></button>
-                        <button onclick="changeColor('#000000')" class="w-6 h-6 rounded-full bg-black"></button>
-                        <input type="color" oninput="changeColor(this.value)" class="w-6 h-6 p-0 border-0 rounded-full overflow-hidden">
+                        <button onclick="changeColor('#2563eb')" class="w-6 h-6 rounded-full bg-blue-600 border border-gray-200"></button>
+                        <button onclick="changeColor('#dc2626')" class="w-6 h-6 rounded-full bg-red-600 border border-gray-200"></button>
+                        <button onclick="changeColor('#16a34a')" class="w-6 h-6 rounded-full bg-green-600 border border-gray-200"></button>
+                        <button onclick="changeColor('#000000')" class="w-6 h-6 rounded-full bg-black border border-gray-200"></button>
+                        <input type="color" oninput="changeColor(this.value)" class="w-6 h-6 p-0 border-0 rounded-full overflow-hidden cursor-pointer">
                     </div>
                 </div>
 
@@ -124,14 +106,24 @@
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Add Sections</h2>
-                <button onclick="addExperience()" class="w-full mb-2 border border-blue-500 text-blue-600 py-2 rounded text-sm font-medium hover:bg-blue-50">+ Add Experience</button>
-                <button onclick="addEducation()" class="w-full border border-green-500 text-green-600 py-2 rounded text-sm font-medium hover:bg-green-50">+ Add Education</button>
+                <p class="text-xs text-gray-500 mb-3">Click to add new blocks to your resume. You can rename them directly in the preview.</p>
+                
+                <button onclick="addExperience()" class="w-full mb-2 border border-blue-500 text-blue-600 py-2 rounded text-sm font-medium hover:bg-blue-50 text-left px-4">
+                    + Add Experience Item
+                </button>
+                <button onclick="addEducation()" class="w-full mb-2 border border-green-500 text-green-600 py-2 rounded text-sm font-medium hover:bg-green-50 text-left px-4">
+                    + Add Education Item
+                </button>
+                
+                <button onclick="addCustomSection()" class="w-full border-2 border-dashed border-gray-400 text-gray-600 py-2 rounded text-sm font-bold hover:bg-gray-50 text-left px-4 mt-2">
+                    + Add New Custom Section
+                </button>
             </div>
         </div>
 
         <div class="w-full lg:w-3/4 flex justify-center bg-gray-200 p-4 rounded-xl overflow-auto custom-scrollbar">
             <div id="resume-preview" class="a4-page font-sans relative">
-                <div class="resume-content">
+                <div id="resume-body" class="resume-content">
                     
                     <div id="header-section" class="border-b-4 pb-6 mb-8 theme-border" style="border-color: #2563eb;">
                         <h1 class="text-5xl font-bold uppercase tracking-tight text-gray-900 mb-2 outline-none" contenteditable="true">Your Name</h1>
@@ -148,54 +140,56 @@
                         </div>
                     </div>
 
-                    <div class="mb-8">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3 border-b pb-1">Professional Profile</h3>
-                        <p id="ai-summary-box" class="text-sm leading-relaxed text-gray-700 outline-none" contenteditable="true">
-                            A highly motivated professional with a passion for problem-solving and strategic thinking. Experienced in project management and utilizing modern tools to drive efficiency. (Click here to edit or use AI button)
+                    <div class="mb-8 group relative hover:bg-gray-50 p-2 rounded">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3 border-b pb-1 outline-none" contenteditable="true">Professional Profile</h3>
+                        <p class="text-sm leading-relaxed text-gray-700 outline-none" contenteditable="true">
+                            Click here to write your professional summary. Describe your strengths, experience, and what you are looking for. You can edit any text on this page.
                         </p>
                     </div>
 
-                    <div class="mb-8">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3 border-b pb-1">Core Skills</h3>
+                    <div class="mb-8 group relative hover:bg-gray-50 p-2 rounded">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3 border-b pb-1 outline-none" contenteditable="true">Core Skills</h3>
                         <div class="flex flex-wrap gap-2 text-sm text-gray-700 font-medium outline-none" contenteditable="true">
                             Project Management • Team Leadership • Communication • Digital Marketing • Strategic Planning • Problem Solving
                         </div>
                     </div>
 
                     <div class="mb-8">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b pb-1">Work Experience</h3>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b pb-1 outline-none" contenteditable="true">Work Experience</h3>
                         <div id="experience-list" class="space-y-6">
                             <div class="group relative hover:bg-gray-50 p-2 rounded transition">
                                 <div class="flex justify-between items-baseline mb-1">
-                                    <h4 class="font-bold text-gray-900 text-lg outline-none" contenteditable="true">Senior Manager</h4>
+                                    <h4 class="font-bold text-gray-900 text-lg outline-none" contenteditable="true">Job Position</h4>
                                     <span class="text-sm text-gray-500 font-medium outline-none" contenteditable="true">2023 - Present</span>
                                 </div>
                                 <div class="flex justify-between items-baseline mb-2">
-                                    <p class="theme-text font-semibold outline-none" style="color: #2563eb;" contenteditable="true">Company Name Pvt Ltd.</p>
+                                    <p class="theme-text font-semibold outline-none" style="color: #2563eb;" contenteditable="true">Company Name</p>
                                     <span class="text-xs text-gray-400 outline-none" contenteditable="true">City, Country</span>
                                 </div>
                                 <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 outline-none" contenteditable="true">
-                                    <li>Led a cross-functional team of 10 members to execute strategic projects.</li>
-                                    <li>Increased operational efficiency by 25% through process optimization.</li>
+                                    <li>Describe your responsibility or achievement here.</li>
+                                    <li>Click to edit this text directly.</li>
                                 </ul>
-                                <button onclick="this.parentElement.remove()" class="absolute top-2 right-[-30px] text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700" title="Delete">✕</button>
+                                <button onclick="this.parentElement.remove()" class="absolute top-2 right-[-20px] text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 font-bold" title="Delete">×</button>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b pb-1">Education</h3>
+                    <div class="mb-8">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b pb-1 outline-none" contenteditable="true">Education</h3>
                         <div id="education-list" class="space-y-4">
                             <div class="group relative hover:bg-gray-50 p-2 rounded transition">
                                 <div class="flex justify-between items-baseline">
-                                    <h4 class="font-bold text-gray-900 outline-none" contenteditable="true">Bachelor of Business Administration (BBA)</h4>
+                                    <h4 class="font-bold text-gray-900 outline-none" contenteditable="true">Degree / Course Name</h4>
                                     <span class="text-sm text-gray-500 outline-none" contenteditable="true">2025 - 2028</span>
                                 </div>
-                                <p class="text-sm text-gray-600 outline-none" contenteditable="true">Dayanand College, Vikram University</p>
-                                <button onclick="this.parentElement.remove()" class="absolute top-2 right-[-30px] text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700" title="Delete">✕</button>
+                                <p class="text-sm text-gray-600 outline-none" contenteditable="true">University / School Name</p>
+                                <button onclick="this.parentElement.remove()" class="absolute top-2 right-[-20px] text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 font-bold" title="Delete">×</button>
                             </div>
                         </div>
                     </div>
+
+                    <div id="custom-sections"></div>
 
                 </div>
             </div>
@@ -207,23 +201,7 @@
     </footer>
 
     <script>
-        // 1. AI WRITER LOGIC (Free)
-        const aiTemplates = {
-            'student': "Motivated and disciplined student with a strong academic record. Eager to launch a career by applying theoretical knowledge in a practical environment. Possesses excellent communication and problem-solving skills.",
-            'developer': "Innovative Web Developer with experience in building responsive websites using HTML, CSS, and JavaScript. Skilled in problem-solving and utilizing AI tools to optimize development workflows.",
-            'manager': "Strategic Business Manager with a proven track record of leading teams and driving operational efficiency. Expert in decision-making, project planning, and resource management.",
-            'designer': "Creative Graphic Designer with a keen eye for detail. Proficient in creating visual concepts that inspire, inform, and captivate consumers using modern design tools.",
-            'teacher': "Dedicated Educator committed to creating a supportive learning environment. Experienced in curriculum development and student engagement strategies."
-        };
-
-        function useAI() {
-            const role = document.getElementById('aiRole').value;
-            const text = aiTemplates[role];
-            document.getElementById('ai-summary-box').innerText = text;
-            alert("✨ AI has written your summary! You can now edit it.");
-        }
-
-        // 2. DESIGN CONTROLS
+        // 1. DESIGN CONTROLS
         function changeColor(color) {
             document.querySelectorAll('.theme-text').forEach(el => el.style.color = color);
             document.querySelectorAll('.theme-border').forEach(el => el.style.borderColor = color);
@@ -245,40 +223,63 @@
             else contact.classList.remove('justify-center', 'justify-end');
         }
 
-        // 3. DYNAMIC SECTIONS
+        // 2. DYNAMIC SECTIONS
         function addExperience() {
             const div = document.createElement('div');
-            div.className = 'group relative hover:bg-gray-50 p-2 rounded transition border-l-2 border-transparent hover:border-gray-300';
+            div.className = 'group relative hover:bg-gray-50 p-2 rounded transition border-l-2 border-transparent hover:border-gray-300 mt-4';
             div.innerHTML = `
                 <div class="flex justify-between items-baseline mb-1">
-                    <h4 class="font-bold text-gray-900 text-lg outline-none" contenteditable="true">Job Title</h4>
+                    <h4 class="font-bold text-gray-900 text-lg outline-none" contenteditable="true">New Position</h4>
                     <span class="text-sm text-gray-500 font-medium outline-none" contenteditable="true">Year - Year</span>
                 </div>
                 <p class="theme-text font-semibold outline-none" contenteditable="true">Company Name</p>
                 <ul class="list-disc list-inside text-sm text-gray-700 mt-1 outline-none" contenteditable="true">
-                    <li>Describe your achievement here...</li>
+                    <li>Add details here...</li>
                 </ul>
-                <button onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 text-xs">Delete</button>
+                <button onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 font-bold">×</button>
             `;
+            // Apply current color to new element
+            const currentColor = document.querySelector('.theme-text').style.color;
+            if(currentColor) div.querySelector('.theme-text').style.color = currentColor;
+            
             document.getElementById('experience-list').appendChild(div);
         }
 
         function addEducation() {
             const div = document.createElement('div');
-            div.className = 'group relative hover:bg-gray-50 p-2 rounded transition border-l-2 border-transparent hover:border-gray-300';
+            div.className = 'group relative hover:bg-gray-50 p-2 rounded transition border-l-2 border-transparent hover:border-gray-300 mt-4';
             div.innerHTML = `
                 <div class="flex justify-between items-baseline">
-                    <h4 class="font-bold text-gray-900 outline-none" contenteditable="true">Degree / Course</h4>
+                    <h4 class="font-bold text-gray-900 outline-none" contenteditable="true">New Degree</h4>
                     <span class="text-sm text-gray-500 outline-none" contenteditable="true">Year</span>
                 </div>
                 <p class="text-sm text-gray-600 outline-none" contenteditable="true">University / School Name</p>
-                <button onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 text-xs">Delete</button>
+                <button onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 font-bold">×</button>
             `;
             document.getElementById('education-list').appendChild(div);
         }
 
+        // 3. CUSTOM SECTION LOGIC (New Feature)
+        function addCustomSection() {
+            const div = document.createElement('div');
+            div.className = 'mb-8 group relative hover:bg-gray-50 p-2 rounded';
+            div.innerHTML = `
+                <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3 border-b pb-1 outline-none" contenteditable="true">NEW SECTION TITLE</h3>
+                <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 outline-none" contenteditable="true">
+                    <li>Click to add your content here...</li>
+                    <li>You can rename the title above (e.g., Projects, Languages).</li>
+                </ul>
+                <button onclick="this.parentElement.remove()" class="absolute top-0 right-0 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 font-bold text-xl px-2">×</button>
+            `;
+            document.getElementById('custom-sections').appendChild(div);
+        }
+
         // 4. DOWNLOAD PDF
         function downloadPDF() {
+            // Temporarily hide delete buttons before printing
+            const btns = document.querySelectorAll('button');
+            btns.forEach(b => b.style.display = 'none');
+
             const element = document.getElementById('resume-preview');
             const opt = {
                 margin: 0,
@@ -287,7 +288,11 @@
                 html2canvas: { scale: 2, useCORS: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
-            html2pdf().set(opt).from(element).save();
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Show buttons again
+                btns.forEach(b => b.style.display = '');
+            });
         }
     </script>
 </body>
