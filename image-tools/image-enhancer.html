@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Enhancer - Improve Resolution & Quality Online</title>
+    <meta name="description" content="Enhance image quality online for free. Upscale resolution, adjust brightness, contrast, and sharpen images directly in your browser.">
+    <link rel="icon" type="image/png" href="../logo.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-617N8QHJRJ');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+
+    <style> canvas { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); } </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    
+    <header class="bg-white shadow-sm py-4 px-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-blue-600">FAST PDF TOOLS</a>
+            <nav class="flex gap-6">
+                <a href="../products.html?cat=image" class="text-blue-600 font-bold">Back to Image Tools</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-12">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Image Enhancer</h1>
+            <p class="text-gray-500">Upscale resolution and improve photo quality</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 h-fit">
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Upload Photo</label>
+                    <input type="file" id="fileInput" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border p-1 rounded">
+                </div>
+
+                <div id="settings" class="hidden space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600">Upscale (Resolution)</label>
+                        <select id="scale" class="w-full border p-2 rounded text-sm" onchange="applyFilters()">
+                            <option value="1">Original Size</option>
+                            <option value="1.5">1.5x HD</option>
+                            <option value="2">2x Full HD</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600">Brightness</label>
+                        <input type="range" id="brightness" min="0" max="200" value="100" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer" oninput="applyFilters()">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600">Contrast</label>
+                        <input type="range" id="contrast" min="0" max="200" value="100" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer" oninput="applyFilters()">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600">Saturation</label>
+                        <input type="range" id="saturate" min="0" max="200" value="100" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer" oninput="applyFilters()">
+                    </div>
+                    
+                    <button onclick="resetFilters()" class="text-xs text-red-500 underline w-full text-right">Reset Filters</button>
+
+                    <button id="downloadBtn" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold mt-4 hover:bg-green-700 transition shadow-md">
+                        Download Enhanced Image
+                    </button>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-gray-100 p-4 rounded-xl flex items-center justify-center border border-gray-300 min-h-[400px]">
+                <p id="placeholder" class="text-gray-400">Image Preview will appear here</p>
+                <canvas id="canvas" class="hidden"></canvas>
+            </div>
+        </div>
+
+        <div class="mt-16 prose max-w-none text-gray-600">
+            <h2 class="text-xl font-bold text-gray-800">How to Enhance Image Quality?</h2>
+            <ol class="list-decimal list-inside space-y-1">
+                <li>Upload your photo using the file selector.</li>
+                <li>Use the <strong>Upscale</strong> option to increase resolution (2x).</li>
+                <li>Adjust Brightness, Contrast, and Saturation to fix colors.</li>
+                <li>Click <strong>Download</strong> to save the improved image.</li>
+            </ol>
+            <p class="mt-4"><strong>Note:</strong> This tool uses browser capabilities to enhance pixels. For extremely blurry images, AI restoration might be required (coming in future updates).</p>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t py-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 Fast PDF Tools.</p>
+        <div class="mt-2 space-x-4">
+            <a href="../privacy.html" class="hover:text-blue-600">Privacy</a>
+            <a href="../terms.html" class="hover:text-blue-600">Terms</a>
+        </div>
+    </footer>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const settings = document.getElementById('settings');
+        const placeholder = document.getElementById('placeholder');
+        
+        let img = new Image();
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        placeholder.classList.add('hidden');
+                        canvas.classList.remove('hidden');
+                        settings.classList.remove('hidden');
+                        applyFilters();
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function applyFilters() {
+            const scale = parseFloat(document.getElementById('scale').value);
+            const bri = document.getElementById('brightness').value;
+            const con = document.getElementById('contrast').value;
+            const sat = document.getElementById('saturate').value;
+
+            // Set Resolution
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+
+            // Apply Filters via CSS context (faster than pixel manipulation)
+            ctx.filter = `brightness(${bri}%) contrast(${con}%) saturate(${sat}%)`;
+            
+            // Draw smooth image
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+
+        function resetFilters() {
+            document.getElementById('scale').value = 1;
+            document.getElementById('brightness').value = 100;
+            document.getElementById('contrast').value = 100;
+            document.getElementById('saturate').value = 100;
+            applyFilters();
+        }
+
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'enhanced-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body>
+</html>
