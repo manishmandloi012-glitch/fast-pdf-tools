@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Resume Builder - With Photo & AutoSave</title>
-    <meta name="description" content="Build a professional resume with photo. Auto-saves your progress. Fully customizable. Download PDF for free.">
+    <title>Pro Resume Builder - Create Custom CV Online</title>
+    <meta name="description" content="Build a fully customizable professional resume online. Change colors, fonts, and add unlimited experience/education sections. Download as PDF for free.">
     <link rel="icon" type="image/png" href="../logo.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,7 +29,7 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.15); 
             margin: 0 auto;
             color: #333;
-            overflow: hidden;
+            overflow: hidden; /* Important for PDF generation */
         }
         .resume-content { padding: 15mm; height: 100%; }
         
@@ -44,6 +44,8 @@
             color: #aaa;
             display: block; 
         }
+        
+        /* Fonts */
         .font-roboto { font-family: 'Roboto', sans-serif; }
         .font-serif { font-family: 'Merriweather', serif; }
         .font-sans { font-family: 'Open Sans', sans-serif; }
@@ -56,7 +58,7 @@
             <a href="../index.html" class="text-2xl font-bold text-blue-600">FAST PDF TOOLS</a>
             <div class="flex gap-4 items-center">
                 <a href="../products.html?cat=resume" class="text-gray-600 hover:text-blue-600 font-medium hidden md:block">Back</a>
-                <button onclick="downloadPDF()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700 shadow-md flex items-center gap-2">
+                <button onclick="downloadPDF()" id="dl-btn" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700 shadow-md flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     Download PDF
                 </button>
@@ -72,7 +74,7 @@
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Profile Photo</h2>
                 <div class="flex items-center gap-4">
                     <label class="cursor-pointer bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 text-sm border border-blue-200">
-                        Upload Photo
+                        Upload
                         <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="loadPhoto(event)">
                     </label>
                     <button onclick="removePhoto()" class="text-red-500 text-sm hover:underline">Remove</button>
@@ -81,7 +83,6 @@
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Design</h2>
-                
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-gray-500 mb-1">Theme Color</label>
                     <div class="flex gap-2">
@@ -92,7 +93,6 @@
                         <input type="color" oninput="changeColor(this.value)" class="w-6 h-6 p-0 border-0 rounded-full overflow-hidden cursor-pointer">
                     </div>
                 </div>
-
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-gray-500 mb-1">Header Align</label>
                     <div class="flex bg-gray-100 rounded p-1">
@@ -104,82 +104,14 @@
             </div>
 
             <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
-                <h2 class="text-lg font-bold text-gray-800 mb-4">Actions</h2>
+                <h2 class="text-lg font-bold text-gray-800 mb-4">Add Content</h2>
                 <button onclick="addExperience()" class="w-full mb-2 border border-blue-500 text-blue-600 py-2 rounded text-sm font-medium hover:bg-blue-50 text-left px-4">+ Add Experience</button>
                 <button onclick="addEducation()" class="w-full mb-2 border border-green-500 text-green-600 py-2 rounded text-sm font-medium hover:bg-green-50 text-left px-4">+ Add Education</button>
                 <button onclick="addCustomSection()" class="w-full border border-gray-400 text-gray-600 py-2 rounded text-sm font-medium hover:bg-gray-50 text-left px-4 mt-2">+ Add Custom Section</button>
                 
                 <div class="border-t mt-4 pt-4">
-                     <button onclick="resetResume()" class="w-full text-red-500 text-xs hover:underline">Reset Everything (Clear Data)</button>
+                     <button onclick="resetResume()" class="w-full text-red-500 text-xs hover:underline">Reset Data</button>
                 </div>
             </div>
-            
-            <p id="saveStatus" class="text-xs text-center text-gray-400">Autosave enabled</p>
+            <p id="saveStatus" class="text-xs text-center text-gray-400 mt-2">Auto-save on</p>
         </div>
-
-        <div class="w-full lg:w-3/4 flex justify-center bg-gray-200 p-4 rounded-xl overflow-auto custom-scrollbar">
-            <div id="resume-preview" class="a4-page font-sans relative">
-                <div id="resume-body" class="resume-content">
-                    
-                    <div id="header-section" class="border-b-4 pb-6 mb-8 theme-border flex flex-col md:flex-row gap-6 items-start" style="border-color: #2563eb;">
-                        
-                        <div id="profile-photo-container" class="hidden flex-shrink-0">
-                            <img id="profile-photo" src="" alt="Profile" class="w-32 h-32 object-cover rounded-full border-2 border-gray-100 shadow-sm">
-                        </div>
-
-                        <div class="flex-grow w-full">
-                            <h1 class="text-5xl font-bold uppercase tracking-tight text-gray-900 mb-2 outline-none" contenteditable="true">Your Name</h1>
-                            <p class="text-2xl font-medium theme-text outline-none" style="color: #2563eb;" contenteditable="true">Professional Title</p>
-                            
-                            <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-4" id="contact-info">
-                                <span contenteditable="true">📞 +91 98765 43210</span>
-                                <span class="text-gray-300">|</span>
-                                <span contenteditable="true">✉️ email@example.com</span>
-                                <span class="text-gray-300">|</span>
-                                <span contenteditable="true">📍 City, India</span>
-                                <span class="text-gray-300">|</span>
-                                <span contenteditable="true">🔗 linkedin.com/in/yourname</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-8 group relative hover:bg-gray-50 p-2 rounded">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3 border-b pb-1 outline-none" contenteditable="true">Professional Profile</h3>
-                        <p class="text-sm leading-relaxed text-gray-700 outline-none" contenteditable="true">
-                            Write your professional summary here. Describe your strengths, experience, and career goals.
-                        </p>
-                    </div>
-
-                    <div class="mb-8 group relative hover:bg-gray-50 p-2 rounded">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3 border-b pb-1 outline-none" contenteditable="true">Core Skills</h3>
-                        <div class="flex flex-wrap gap-2 text-sm text-gray-700 font-medium outline-none" contenteditable="true">
-                            Project Management • Team Leadership • Communication • Digital Marketing • Problem Solving
-                        </div>
-                    </div>
-
-                    <div class="mb-8">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b pb-1 outline-none" contenteditable="true">Work Experience</h3>
-                        <div id="experience-list" class="space-y-6">
-                            <div class="group relative hover:bg-gray-50 p-2 rounded transition">
-                                <div class="flex justify-between items-baseline mb-1">
-                                    <h4 class="font-bold text-gray-900 text-lg outline-none" contenteditable="true">Job Position</h4>
-                                    <span class="text-sm text-gray-500 font-medium outline-none" contenteditable="true">2023 - Present</span>
-                                </div>
-                                <div class="flex justify-between items-baseline mb-2">
-                                    <p class="theme-text font-semibold outline-none" style="color: #2563eb;" contenteditable="true">Company Name</p>
-                                    <span class="text-xs text-gray-400 outline-none" contenteditable="true">City, Country</span>
-                                </div>
-                                <ul class="list-disc list-inside text-sm text-gray-700 space-y-1 outline-none" contenteditable="true">
-                                    <li>Describe your responsibility or achievement here.</li>
-                                </ul>
-                                <button onclick="this.parentElement.remove(); saveProgress();" class="absolute top-2 right-[-20px] text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 font-bold" title="Delete">×</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-8">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 border-b pb-1 outline-none" contenteditable="true">Education</h3>
-                        <div id="education-list" class="space-y-4">
-                            <div class="group relative hover:bg-gray-50 p-2 rounded transition">
-                                <div class="flex justify-between items-baseline">
-                                    <h4 class="font-bold text-gray-90
