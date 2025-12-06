@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper - Crop Photos Online</title>
+    <meta name="description" content="Crop images online easily. Cut out parts of photos, adjust framing for social media. Free and private tool.">
+    <link rel="icon" type="image/png" href="../logo.png">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-617N8QHJRJ');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+
+    <style> 
+        #image { max-width: 100%; display: block; } 
+        .img-container { max-height: 500px; overflow: hidden; background: #f3f4f6; border-radius: 0.5rem; } 
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    
+    <header class="bg-white shadow-sm py-4 px-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-blue-600">FAST PDF TOOLS</a>
+            <nav class="flex gap-6">
+                <a href="../products.html?cat=image" class="text-blue-600 font-bold">Back to Image Tools</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-12">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Image Cropper</h1>
+            <p class="text-gray-500">Crop pictures for social media or projects</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+            <div class="mb-6 text-center">
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+                <button onclick="document.getElementById('fileInput').click()" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
+                    Upload Image to Crop
+                </button>
+            </div>
+            
+            <div class="img-container hidden mb-6" id="imgContainer">
+                <img id="image" src="">
+            </div>
+
+            <button id="cropBtn" class="hidden w-full bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition shadow-md">
+                Crop & Download
+            </button>
+        </div>
+
+        <div class="mt-16 prose text-gray-600 mx-auto">
+            <h2 class="text-xl font-bold text-gray-800">Crop Photos Fast & Easy</h2>
+            <p>Upload a photo, drag the box to select the area you want to keep, and click Crop. Perfect for profile pictures, thumbnails, and cleaning up screenshots.</p>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t py-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 Fast PDF Tools.</p>
+        <div class="mt-2 space-x-4">
+            <a href="../privacy.html" class="hover:text-blue-600">Privacy</a>
+            <a href="../terms.html" class="hover:text-blue-600">Terms</a>
+        </div>
+    </footer>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const image = document.getElementById('image');
+        const imgContainer = document.getElementById('imgContainer');
+        const cropBtn = document.getElementById('cropBtn');
+        let cropper;
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    image.src = event.target.result;
+                    imgContainer.classList.remove('hidden');
+                    cropBtn.classList.remove('hidden');
+                    
+                    if(cropper) cropper.destroy();
+                    cropper = new Cropper(image, { 
+                        viewMode: 1, 
+                        autoCropArea: 0.8,
+                        responsive: true
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        cropBtn.addEventListener('click', () => {
+            if(cropper) {
+                cropper.getCroppedCanvas().toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'cropped-image.png';
+                    link.click();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
