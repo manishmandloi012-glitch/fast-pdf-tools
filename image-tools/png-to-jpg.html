@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNG to JPG Converter - Free Online Tool</title>
+    <meta name="description" content="Convert PNG images to JPG format online for free. Automatically adds white background to transparent images. Fast and Secure.">
+    <link rel="icon" type="image/png" href="../logo.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-617N8QHJRJ');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    
+    <header class="bg-white shadow-sm py-4 px-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-blue-600">FAST PDF TOOLS</a>
+            <nav class="flex gap-6">
+                <a href="../products.html?cat=image" class="text-blue-600 font-bold">Back to Image Tools</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-12">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">PNG to JPG Converter</h1>
+            <p class="text-gray-500">Convert transparent PNG to JPG instantly</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200 text-center">
+            <div id="drop-area" class="border-2 border-dashed border-purple-300 rounded-xl p-8 mb-4 cursor-pointer hover:bg-purple-50 transition">
+                <div class="mb-4 text-purple-500 flex justify-center">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <p class="text-gray-500 font-medium">Click to Select PNG Image</p>
+                <p class="text-xs text-gray-400 mt-1">Supports Transparency Handling</p>
+                <input type="file" id="fileInput" accept="image/png" class="hidden">
+            </div>
+            
+            <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
+            <p id="status" class="mt-2 text-sm text-gray-600 font-medium"></p>
+            
+            <a id="downloadBtn" class="hidden inline-block mt-6 w-full bg-purple-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-purple-700 transition shadow-md">Download JPG Image</a>
+        </div>
+
+        <div class="mt-16 prose text-gray-600">
+            <h2 class="text-xl font-bold text-gray-800">How to Convert PNG to JPG?</h2>
+            <ol class="list-decimal list-inside space-y-1">
+                <li>Click the box above to select your PNG file.</li>
+                <li>Our tool will automatically convert it.</li>
+                <li>Wait for the <strong>"Download JPG"</strong> button to appear.</li>
+                <li>Save your new image.</li>
+            </ol>
+            <p class="mt-4 text-sm bg-yellow-50 p-4 rounded border border-yellow-200">
+                <strong>Note:</strong> JPG does not support transparency. Any transparent background in your PNG will be converted to <strong>White</strong> automatically.
+            </p>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t py-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 Fast PDF Tools.</p>
+        <div class="mt-2 space-x-4">
+            <a href="../privacy.html" class="hover:text-blue-600">Privacy</a>
+            <a href="../terms.html" class="hover:text-blue-600">Terms</a>
+        </div>
+    </footer>
+
+    <script>
+        const input = document.getElementById('fileInput');
+        const dropArea = document.getElementById('drop-area');
+        const fileNameDisplay = document.getElementById('fileName');
+        const statusText = document.getElementById('status');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        dropArea.addEventListener('click', () => input.click());
+
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            fileNameDisplay.innerText = "Selected: " + file.name;
+            fileNameDisplay.classList.remove('hidden');
+            statusText.innerText = "Converting...";
+            statusText.className = "mt-2 text-sm text-blue-600 font-medium";
+            downloadBtn.classList.add('hidden');
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // 1. Fill White Background (Must do this before drawing image)
+                    ctx.fillStyle = "#FFFFFF";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // 2. Draw the PNG image on top
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // 3. Export as JPG
+                    const jpgUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    
+                    downloadBtn.href = jpgUrl;
+                    downloadBtn.download = file.name.replace(/\.png$/i, '') + '.jpg';
+                    
+                    downloadBtn.classList.remove('hidden');
+                    statusText.innerText = "Success! Image converted.";
+                    statusText.className = "mt-2 text-sm text-green-600 font-bold";
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
