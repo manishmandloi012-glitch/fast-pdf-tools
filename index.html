@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Products - Fast PDF Tools</title>
+    <title>Fast PDF Tools - Free Online PDF Editor</title>
+    <meta name="description" content="Free online PDF tools. Merge, Split, Compress, Convert, and Edit PDF files easily. 100% Free and Secure.">
     <link rel="icon" type="image/png" href="logo.png">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
@@ -13,9 +14,14 @@
       gtag('js', new Date());
       gtag('config', 'G-617N8QHJRJ');
     </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
+      .tool-card { transition: all 0.2s ease; }
+    </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
     
@@ -23,42 +29,78 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="text-2xl font-bold text-blue-600"><a href="index.html">FAST PDF TOOLS</a></div>
             <nav class="flex gap-6">
-                <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-                <a href="products.html" class="text-blue-600 font-bold">More Products</a>
+                <a href="index.html" class="text-blue-600 font-bold">PDF Tools</a>
+                <a href="products.html" class="text-gray-700 hover:text-blue-600 font-medium">More Products</a>
             </nav>
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl mx-auto px-8 py-16">
-        <h1 class="text-4xl font-bold text-center mb-12 text-gray-900">Explore Our Tools</h1>
+    <main class="flex-grow max-w-7xl mx-auto px-8 py-16 text-center">
+        <h1 class="text-5xl font-bold mb-4 text-gray-900">All PDF Tools in One Place</h1>
+        <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-12">Fast, secure, and easy-to-use PDF tools. No file uploads, 100% privacy.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <a href="merge.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Merge PDF</h3>
+            </a>
 
-        <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Image Tools</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <a href="image-tools/image-compressor.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-                <h3 class="font-bold text-lg text-pink-600">Image Compressor</h3>
-                <p class="text-sm text-gray-500">Reduce image size</p>
+            <a href="split.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Split PDF</h3>
             </a>
-            <a href="image-tools/jpg-to-png.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-                <h3 class="font-bold text-lg text-pink-600">JPG to PNG</h3>
-                <p class="text-sm text-gray-500">Convert format instantly</p>
-            </a>
-        </div>
 
-        <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Resume & Business</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="resume-tools/resume-builder.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-                <h3 class="font-bold text-lg text-blue-600">Resume Builder</h3>
-                <p class="text-sm text-gray-500">Create professional CV</p>
+            <a href="compress.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Compress PDF</h3>
             </a>
-            <a href="resume-tools/invoice-generator.html" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-                <h3 class="font-bold text-lg text-blue-600">Invoice Generator</h3>
-                <p class="text-sm text-gray-500">Make PDF Invoices</p>
+
+            <a href="converter.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Image to PDF</h3>
+            </a>
+
+            <a href="rotate.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Rotate PDF</h3>
+            </a>
+
+            <a href="reorder.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Reorder Pages</h3>
+            </a>
+
+            <a href="pdf-to-jpg.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">PDF to JPG</h3>
+            </a>
+
+            <a href="convert.html" class="tool-card bg-white p-8 rounded-xl shadow cursor-pointer block border border-gray-100">
+                <div class="w-12 h-12 mx-auto mb-4 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Word to PDF</h3>
             </a>
         </div>
     </main>
 
-    <footer class="bg-white border-t py-8 text-center text-gray-500">
-        <p>&copy; 2025 Fast PDF Tools.</p>
-    </footer>
-</body>
-</html>
+    <footer class="bg-white border-t py-10 text-center">
+        <p class="text-gray-500 mb-4">&copy; 2025 Fast PDF Tools.</p>
+        <div class="space-x-6 text-sm">
+            <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+            <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+            <a href="contact.html" class="text-gray-600 hover:text-blue-600">Contact
