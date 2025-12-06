@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Compressor</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-617N8QHJRJ');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    <header class="bg-white shadow-sm py-4 px-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-blue-600">FAST PDF TOOLS</a>
+            <a href="../products.html" class="text-blue-600 font-bold">Back to Products</a>
+        </div>
+    </header>
+    
+    <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-12">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Image Compressor</h1>
+            <p class="text-gray-500">Reduce image size instantly</p>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+            <div id="drop-area" class="border-2 border-dashed border-blue-300 rounded-xl p-8 text-center cursor-pointer hover:bg-blue-50 transition">
+                <p class="text-gray-500">Click to Upload JPG/PNG</p>
+                <input type="file" id="imageInput" accept="image/*" class="hidden">
+            </div>
+            <div id="controls" class="hidden mt-6">
+                <label class="block text-sm font-bold text-gray-700 mb-2">Compression Level</label>
+                <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.7" class="w-full">
+                <button id="compressBtn" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold mt-4 hover:bg-blue-700">Compress Now</button>
+            </div>
+            <div id="result" class="hidden mt-6 text-center">
+                <p id="size-info" class="text-sm text-gray-600 mb-4"></p>
+                <a id="downloadLink" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700">Download Image</a>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-white border-t py-8 text-center text-gray-500">
+        <p>&copy; 2025 Fast PDF Tools.</p>
+    </footer>
+    <script>
+        const input = document.getElementById('imageInput');
+        const controls = document.getElementById('controls');
+        const compressBtn = document.getElementById('compressBtn');
+        const resultDiv = document.getElementById('result');
+        let originalFile = null;
+        document.getElementById('drop-area').addEventListener('click', () => input.click());
+        input.addEventListener('change', (e) => {
+            if(e.target.files[0]) {
+                originalFile = e.target.files[0];
+                controls.classList.remove('hidden');
+                resultDiv.classList.add('hidden');
+            }
+        });
+        compressBtn.addEventListener('click', async () => {
+            const quality = parseFloat(document.getElementById('quality').value);
+            const options = { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true, initialQuality: quality };
+            try {
+                const compressedFile = await imageCompression(originalFile, options);
+                const url = URL.createObjectURL(compressedFile);
+                const link = document.getElementById('downloadLink');
+                link.href = url;
+                link.download = "compressed-" + originalFile.name;
+                document.getElementById('size-info').innerHTML = `Original: ${(originalFile.size/1024).toFixed(1)}KB <br> New: <strong>${(compressedFile.size/1024).toFixed(1)}KB</strong>`;
+                resultDiv.classList.remove('hidden');
+            } catch (err) { alert('Error compressing file.'); }
+        });
+    </script>
+</body>
+</html>
