@@ -1,16 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image to PDF - Convert JPG to PDF Online</title>
-  <meta name="description" content="Convert JPG and PNG images to PDF for free. Merge multiple images into a single PDF document securely in your browser.">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
- </head>
- <body class="min-h-full flex flex-col bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF - Convert JPG to PDF Online</title>
+    <meta name="description" content="Convert JPG and PNG images to PDF for free. Merge multiple images into a single PDF document securely in your browser.">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-617N8QHJRJ');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+</head>
+<body class="min-h-full flex flex-col bg-gray-50">
    
-   <header class="py-6 px-8 bg-white shadow-sm">
+   <header class="py-6 px-8 bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
      <div class="text-2xl font-bold text-blue-600">
       <a href="index.html">FAST PDF TOOLS</a>
@@ -25,7 +36,7 @@
     <div class="w-full max-w-2xl">
      
      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">Image to PDF Converter</h1>
+        <h1 class="text-3xl font-bold text-gray-900">Image to PDF Converter</h1>
         <p class="text-gray-500">Convert JPG and PNG images to PDF instantly</p>
      </div>
 
@@ -51,4 +62,109 @@
      </div>
 
      <div class="mt-20 prose max-w-none text-gray-600">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert JPG
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert JPG to PDF?</h2>
+        <ol class="list-decimal list-inside space-y-2 mb-8">
+            <li>Click the <strong>"Select Images"</strong> button.</li>
+            <li>Choose the JPG or PNG images you want to convert.</li>
+            <li>You can select multiple images at once to combine them into one PDF.</li>
+            <li>Click the <strong>"Convert to PDF Now"</strong> button.</li>
+            <li>Your PDF document will be created and downloaded instantly.</li>
+        </ol>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Features of our Image to PDF Converter</h2>
+        <p class="mb-4">Our tool is built for ease of use and privacy.</p>
+        <ul class="list-disc list-inside space-y-2 pl-4">
+            <li><strong>Client-Side Processing:</strong> Your photos stay on your device. We do not upload them to any cloud server.</li>
+            <li><strong>Fast Conversion:</strong> Since it runs in your browser, the conversion happens in milliseconds.</li>
+            <li><strong>Multiple Formats:</strong> Supports both JPG and PNG image formats.</li>
+        </ul>
+     </div>
+
+    </div>
+   </main>
+
+   <footer class="bg-white border-t border-gray-200 py-8 mt-10">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
+        <div class="mt-2 space-x-4 text-sm">
+            <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+            <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+            <a href="contact.html" class="text-gray-600 hover:text-blue-600">Contact</a>
+        </div>
+    </div>
+   </footer>
+
+  <script>
+    const uploadBox = document.getElementById('upload-box');
+    const fileInput = document.getElementById('file-input');
+    const fileList = document.getElementById('file-list');
+    const filesContainer = document.getElementById('files-container');
+    const convertBtn = document.getElementById('convert-btn');
+    const statusText = document.getElementById('status-text');
+
+    // Click karne par file select khulega
+    uploadBox.addEventListener('click', () => fileInput.click());
+    
+    // Jab file select hogi
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            filesContainer.innerHTML = '';
+            fileList.classList.remove('hidden'); // List dikhao
+            
+            Array.from(e.target.files).forEach((file) => {
+                const item = document.createElement('div');
+                item.className = 'p-3 bg-slate-50 rounded border border-slate-200 text-slate-700 font-medium flex justify-between items-center';
+                item.innerHTML = `<span class="truncate">${file.name}</span> <span class="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded">IMG</span>`;
+                filesContainer.appendChild(item);
+            });
+        }
+    });
+
+    // Jab Convert button dabaya jayega
+    convertBtn.addEventListener('click', async () => {
+        const { jsPDF } = window.jspdf;
+        statusText.innerText = "Processing... Please wait.";
+        statusText.className = "text-center mt-3 text-blue-500 font-medium";
+        convertBtn.disabled = true;
+        convertBtn.classList.add('opacity-50');
+        
+        try {
+            const doc = new jsPDF();
+            for (let i = 0; i < fileInput.files.length; i++) {
+                const file = fileInput.files[i];
+                const imgData = await readFile(file);
+                
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                
+                if (i > 0) doc.addPage();
+                doc.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            }
+
+            doc.save("converted-images.pdf");
+            
+            statusText.innerText = "Success! PDF Downloaded.";
+            statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
+            convertBtn.disabled = false;
+            convertBtn.classList.remove('opacity-50');
+            convertBtn.innerText = "Convert More Images";
+        } catch (error) {
+            console.error(error);
+            statusText.innerText = "Error during conversion. Try refreshing.";
+            statusText.className = "text-center mt-3 text-red-600 font-medium";
+            convertBtn.disabled = false;
+            convertBtn.classList.remove('opacity-50');
+        }
+    });
+
+    function readFile(file) {
+        return new Promise((r) => {
+            const reader = new FileReader();
+            reader.onload = (e) => r(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+  </script>
+ </body>
+</html>
