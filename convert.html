@@ -1,169 +1,247 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word to PDF - Convert DOCX to PDF Online</title>
-    <meta name="description" content="Convert Word documents (DOCX) to PDF online for free. Instant conversion without software installation. Secure and private.">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        #preview-container {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 20mm;
-            margin: 20px auto;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            color: black;
-            font-family: 'Times New Roman', serif;
-            line-height: 1.6;
-            display: none; 
-        }
-        #preview-container h1, #preview-container h2 { font-weight: bold; margin-bottom: 10px; }
-        #preview-container p { margin-bottom: 10px; }
-        #preview-container table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-        #preview-container td, #preview-container th { border: 1px solid #ddd; padding: 8px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word to PDF Online Free - Convert DOCX to PDF | Fast PDF Tools</title>
+<meta name="description" content="Convert Word (.docx) files to PDF online for free. No upload, 100% secure, works instantly in your browser.">
+<link rel="canonical" href="https://www.fast-pdf-tools.com/convert.html">
+<meta property="og:title" content="Word to PDF Online Free - Fast PDF Tools">
+<meta property="og:description" content="Convert a Word document to PDF instantly, right in your browser. 100% private, no upload needed.">
+<meta property="og:url" content="https://www.fast-pdf-tools.com/convert.html">
+<meta property="og:type" content="website">
+<script src="https://cdn.tailwindcss.com"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Word to PDF - Fast PDF Tools",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Convert Word .docx files to PDF online for free, entirely in your browser."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it safe to convert Word documents with sensitive information using this tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Your file is read and converted entirely inside your own browser using JavaScript. Nothing is uploaded to any server, so your document never leaves your device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this support old .doc files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, only the modern .docx format is supported. If you have an older .doc file, open and re-save it as .docx in Word first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will the PDF look exactly like my Word document?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Text, headings, lists, and basic formatting are preserved. Complex layouts such as text boxes, precise page breaks, or heavily customized tables may not match the original exactly."
+      }
+    }
+  ]
+}
+</script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
-    
-    <header class="w-full bg-white shadow-sm py-4 px-8 fixed top-0 z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="font-bold text-blue-600 text-xl">
-                <a href="index.html">FAST PDF TOOLS</a>
-            </div>
-            <nav class="flex gap-8">
-                <a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
-            </nav>
-        </div>
-    </header>
+<body class="min-h-full bg-gray-50 flex flex-col">
 
-    <main class="flex-grow flex flex-col items-center justify-start pt-24 pb-10 px-4">
-        <div class="w-full max-w-2xl">
-            
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold mb-2 text-gray-800">Word to PDF</h1>
-                <p class="text-gray-500">Convert DOCX files to PDF instantly</p>
-            </div>
-    
-            <div class="bg-white p-8 rounded-xl shadow-md text-center border border-gray-100 no-print">
-                <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                
-                <input type="file" id="fileInput" accept=".docx" class="hidden" />
-                
-                <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-purple-500 transition bg-gray-50">
-                    <p class="text-gray-600 font-medium">Click to Select Word File (.docx)</p>
-                </div>
-                
-                <p id="fileName" class="mt-4 text-sm text-gray-700 font-bold hidden"></p>
-                <p id="msg" class="mt-2 text-sm font-medium text-blue-600"></p>
+<header class="py-6 px-8 bg-white shadow-sm">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<div class="text-2xl font-bold text-blue-600">
+<a href="index.html">FAST PDF TOOLS</a>
+</div>
+<nav class="flex gap-8">
+<a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
+</nav>
+</div>
+</header>
 
-                <div id="action-buttons" class="hidden mt-4 justify-center">
-                    <button id="downloadBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition shadow-md">
-                        Download PDF
-                    </button>
-                </div>
-            </div>
+<main class="flex-grow flex flex-col items-center justify-center px-8 py-16">
+<div class="w-full max-w-2xl">
+<div class="text-center mb-8">
+<h1 class="text-3xl font-bold text-gray-800">Convert Word to PDF Online for Free</h1>
+<p class="text-gray-500">Turn a .docx file into a PDF instantly, right in your browser</p>
+</div>
 
-            <div id="preview-container"></div>
+<div id="upload-box" role="button" tabindex="0" aria-label="Select a Word document to convert" class="p-16 rounded-2xl cursor-pointer text-center bg-white border-dashed border-2 border-slate-300 hover:border-blue-500 focus:border-blue-500 focus:outline-none transition-colors shadow-sm">
+<div class="mb-6 flex justify-center text-blue-500">
+<svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+</div>
+<h2 class="text-2xl font-semibold mb-3 text-slate-800">Select a Word File (.docx)</h2>
+<button class="bg-blue-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow-lg hover:bg-blue-700 transition">Choose File</button>
+<input type="file" id="file-input" accept=".docx" style="display: none;" aria-label="Word file input">
+<p class="text-xs text-slate-400 mt-4">Only .docx files are supported (not old .doc format)</p>
+</div>
 
-            <div class="mt-16 prose max-w-none text-gray-600 no-print">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert Word to PDF Online?</h2>
-                <ol class="list-decimal list-inside space-y-2 mb-8">
-                    <li>Upload your <strong>Word document (.docx)</strong> using the box above.</li>
-                    <li>Our tool will generate a <strong>Preview</strong> of your document instantly.</li>
-                    <li>Check the preview to ensure the text looks correct.</li>
-                    <li>Click the <strong>"Download PDF"</strong> button to save the new file.</li>
-                </ol>
-        
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Browser-Based Conversion</h2>
-                <p class="mb-4">
-                    Convert your documents without installing bulky software like Microsoft Office.
-                </p>
-                <ul class="list-disc list-inside space-y-2 pl-4">
-                    <li><strong>Privacy:</strong> Your document is converted right here in your browser. We don't see it.</li>
-                    <li><strong>Simple & Fast:</strong> Perfect for text-heavy documents, resumes, and letters.</li>
-                    <li><strong>Free:</strong> Unlimited conversions for everyone.</li>
-                </ul>
-            </div>
+<div id="file-list" class="mt-6 hidden">
+<div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100">
+<h3 class="text-xl font-semibold mb-4 text-slate-800">Selected File</h3>
+<div id="files-container" class="mb-6 space-y-2"></div>
+<button id="convert-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-green-700 transition shadow-md">
+Convert to PDF
+</button>
+<p id="status-text" class="text-center mt-3 text-gray-500 font-medium" role="status" aria-live="polite"></p>
+</div>
+</div>
 
-        </div>
-    </main>
+<div id="preview-container" class="hidden mt-6 p-6 bg-white rounded-xl border border-gray-100 max-h-96 overflow-y-auto"></div>
 
-    <footer class="bg-white border-t border-gray-200 py-8 mt-auto no-print">
-        <div class="max-w-7xl mx-auto px-8 text-center">
-            <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
-            <div class="mt-2 space-x-4 text-sm">
-                <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
-                <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
+<div class="mt-20 prose max-w-none text-gray-600">
+<h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert Word to PDF Online for Free</h2>
+<ol class="list-decimal list-inside space-y-2 mb-8">
+<li>Click on the <strong>"Choose File"</strong> button above.</li>
+<li>Select a .docx Word document from your computer or mobile.</li>
+<li>Click the <strong>"Convert to PDF"</strong> button.</li>
+<li>Wait a moment, and your PDF will download automatically.</li>
+</ol>
 
-    <script>
-        const uploadArea = document.getElementById('upload-area');
-        const fileInput = document.getElementById('fileInput');
-        const previewContainer = document.getElementById('preview-container');
-        const msg = document.getElementById('msg');
-        const actionButtons = document.getElementById('action-buttons');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const fileNameDisplay = document.getElementById('fileName');
+<h2 class="text-2xl font-bold text-gray-800 mb-4">Why use Fast PDF Tools to convert Word documents?</h2>
+<p class="mb-4">
+Most free Word-to-PDF converters upload your file to a remote server to process it. Fast PDF Tools works differently:
+</p>
+<ul class="list-disc list-inside space-y-2 pl-4 mb-4">
+<li><strong>100% Privacy:</strong> Your document is read and converted using your browser's own JavaScript engine. It's never transmitted anywhere.</li>
+<li><strong>Instant:</strong> No upload or download wait, conversion starts the moment you click the button.</li>
+<li><strong>Free, no account needed:</strong> No sign-up, no watermark, no daily limit.</li>
+</ul>
 
-        uploadArea.addEventListener('click', () => fileInput.click());
+<h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<div>
+<h3 class="font-semibold text-gray-800">Is it safe to convert Word documents with sensitive information using this tool?</h3>
+<p>Yes. Your file is read and converted entirely inside your own browser using JavaScript. Nothing is uploaded to any server, so your document never leaves your device.</p>
+</div>
+<div>
+<h3 class="font-semibold text-gray-800">Does this support old .doc files?</h3>
+<p>No, only the modern .docx format is supported. If you have an older .doc file, open and re-save it as .docx in Word first.</p>
+</div>
+<div>
+<h3 class="font-semibold text-gray-800">Will the PDF look exactly like my Word document?</h3>
+<p>Text, headings, lists, and basic formatting are preserved. Complex layouts such as text boxes, precise page breaks, or heavily customized tables may not match the original exactly.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
 
-        fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+<footer class="bg-white border-t border-gray-200 py-8 mt-10">
+<div class="max-w-7xl mx-auto px-8 text-center">
+<p class="text-gray-500 text-sm">&copy; 2026 Fast PDF Tools.</p>
+<div class="mt-2 space-x-4 text-sm">
+<a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+<a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+</div>
+</div>
+</footer>
 
-            fileNameDisplay.innerText = "Selected: " + file.name;
-            fileNameDisplay.classList.remove('hidden');
-            msg.innerText = "Reading document...";
-            
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const arrayBuffer = event.target.result;
-                mammoth.convertToHtml({arrayBuffer: arrayBuffer})
-                .then(displayResult)
-                .catch(handleError);
-            };
-            reader.readAsArrayBuffer(file);
-        });
+<script src="https://unpkg.com/mammoth@1.6.0/mammoth.browser.min.js" defer></script>
+<script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js" defer></script>
+<script>
+const uploadBox = document.getElementById('upload-box');
+const fileInput = document.getElementById('file-input');
+const fileList = document.getElementById('file-list');
+const filesContainer = document.getElementById('files-container');
+const convertBtn = document.getElementById('convert-btn');
+const statusText = document.getElementById('status-text');
+const previewContainer = document.getElementById('preview-container');
+let selectedFile = null;
+let librariesLoaded = false;
 
-        function displayResult(result) {
-            previewContainer.innerHTML = result.value;
-            previewContainer.style.display = "block";
-            actionButtons.classList.remove('hidden');
-            actionButtons.classList.add('flex');
-            msg.innerText = "Preview generated. Click Download below.";
-            msg.className = "mt-2 text-sm font-bold text-green-600";
-        }
+function loadLibraries() {
+  if (librariesLoaded) return Promise.resolve();
+  if (typeof mammoth !== 'undefined' && typeof html2pdf !== 'undefined') {
+    librariesLoaded = true;
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => {
+    const check = setInterval(() => {
+      if (typeof mammoth !== 'undefined' && typeof html2pdf !== 'undefined') {
+        clearInterval(check);
+        librariesLoaded = true;
+        resolve();
+      }
+    }, 100);
+  });
+}
 
-        function handleError(err) {
-            console.log(err);
-            msg.innerText = "Error reading file. Make sure it is a valid .docx";
-            msg.className = "mt-2 text-sm font-bold text-red-600";
-        }
+uploadBox.addEventListener('click', () => fileInput.click());
+uploadBox.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
+});
 
-        downloadBtn.addEventListener('click', () => {
-            msg.innerText = "Generating PDF...";
-            
-            const element = document.getElementById('preview-container');
-            const opt = {
-                margin:       10,
-                filename:     'converted-document.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length > 0) {
+    selectedFile = e.target.files[0];
+    filesContainer.innerHTML = '';
+    fileList.classList.remove('hidden');
+    const item = document.createElement('div');
+    item.className = 'p-3 bg-slate-50 rounded border border-slate-200 text-gray-700 flex justify-between items-center';
+    item.innerHTML = `<span class="truncate font-medium">${selectedFile.name}</span> <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">DOCX</span>`;
+    filesContainer.appendChild(item);
+  }
+});
 
-            html2pdf().set(opt).from(element).save().then(() => {
-                msg.innerText = "Success! PDF Downloaded.";
-            });
-        });
-    </script>
+convertBtn.addEventListener('click', async () => {
+  if (!selectedFile) return alert("Please select a .docx file!");
+
+  statusText.innerText = "Reading document...";
+  statusText.className = "text-center mt-3 text-blue-600 font-medium";
+  convertBtn.disabled = true;
+  convertBtn.classList.add('opacity-50');
+
+  try {
+    await loadLibraries();
+
+    if (!selectedFile.name.toLowerCase().endsWith('.docx')) {
+      throw new Error("Please select a .docx file. Old .doc files aren't supported.");
+    }
+
+    const arrayBuffer = await selectedFile.arrayBuffer();
+    const result = await mammoth.convertToHtml({ arrayBuffer });
+
+    previewContainer.innerHTML = result.value;
+    previewContainer.classList.remove('hidden');
+    previewContainer.classList.add('prose', 'max-w-none');
+
+    statusText.innerText = "Generating PDF...";
+
+    const opt = {
+      margin: 0.5,
+      filename: selectedFile.name.replace(/\.docx$/i, '') + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    await html2pdf().set(opt).from(previewContainer).save();
+
+    statusText.innerText = "Success! PDF Downloaded.";
+    statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
+    convertBtn.innerText = "Convert Another File";
+  } catch (error) {
+    console.error(error);
+    statusText.innerText = error.message || "Error processing file. Try again.";
+    statusText.className = "text-center mt-3 text-red-600 font-medium";
+  } finally {
+    convertBtn.disabled = false;
+    convertBtn.classList.remove('opacity-50');
+  }
+});
+</script>
 </body>
 </html>
