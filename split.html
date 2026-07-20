@@ -1,149 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Split PDF - Extract Pages Online</title>
-    <meta name="description" content="Split PDF files online for free. Extract specific pages or separate all pages from your PDF document securely in your browser.">
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split PDF Online Free - Extract Pages | Fast PDF Tools</title>
+<meta name="description" content="Split a PDF into multiple files or extract specific pages online for free. No upload, 100% secure, works instantly in your browser.">
+<link rel="canonical" href="https://www.fast-pdf-tools.com/split.html">
+<meta property="og:title" content="Split PDF Online Free - Fast PDF Tools">
+<meta property="og:description" content="Split a PDF into separate files or extract specific pages instantly. 100% private, no upload needed.">
+<meta property="og:url" content="https://www.fast-pdf-tools.com/split.html">
+<meta property="og:type" content="website">
+<script src="https://cdn.tailwindcss.com"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Split PDF - Fast PDF Tools",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Split a PDF file into separate pages or documents online for free, entirely in your browser."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it safe to split PDF files with sensitive information using this tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Your files are processed entirely inside your own browser using JavaScript. Nothing is uploaded to any server, so your documents never leave your device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I extract just a few specific pages instead of splitting the whole file?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can choose which pages to extract into a new PDF, rather than splitting every page into its own file."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will splitting a PDF reduce its quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Pages are copied directly from the original file without re-compressing or re-rendering them, so quality is fully preserved."
+      }
+    }
+  ]
+}
+</script>
 </head>
-<body class="bg-gray-50 min-h-full flex flex-col">
-    
-    <header class="py-6 px-8 bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold text-blue-600">
-                <a href="index.html">FAST PDF TOOLS</a>
-            </div>
-            <nav class="flex gap-8">
-                <a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
-            </nav>
-        </div>
-    </header>
+<body class="min-h-full bg-gray-50 flex flex-col">
 
-    <main class="flex-grow flex flex-col items-center justify-center px-8 py-16">
-        <div class="w-full max-w-2xl">
-            
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800">Split PDF File</h1>
-                <p class="text-gray-500">Extract pages from your PDF document</p>
-            </div>
-    
-            <div class="bg-white p-8 rounded-xl shadow-md text-center border border-gray-100">
-                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                
-                <input type="file" id="fileInput" accept=".pdf" class="mb-6 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-green-50 file:text-green-700 hover:file:bg-green-100 border rounded-lg p-2"/>
-                
-                <div class="text-left mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Which pages to extract?</label>
-                    <input type="text" id="pageNumbers" placeholder="e.g. 1, 3, 5 (Leave empty to split all)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <p class="text-xs text-gray-400 mt-1">Enter page numbers separated by comma. Leave empty to download every page as a separate file.</p>
-                </div>
-    
-                <button id="splitBtn" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition shadow-md">
-                    Split PDF Now
-                </button>
-                <p id="msg" class="mt-4 text-sm font-medium"></p>
-            </div>
+<header class="py-6 px-8 bg-white shadow-sm">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<div class="text-2xl font-bold text-blue-600">
+<a href="index.html">FAST PDF TOOLS</a>
+</div>
+<nav class="flex gap-8">
+<a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
+</nav>
+</div>
+</header>
 
-            <div class="mt-16 prose max-w-none text-gray-600">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Split PDF Pages Online?</h2>
-                <ol class="list-decimal list-inside space-y-2 mb-8">
-                    <li>Upload your PDF file using the file selector above.</li>
-                    <li>Enter the <strong>page numbers</strong> you want to extract (e.g., "1, 5, 10").</li>
-                    <li>If you want to separate <strong>ALL pages</strong> into individual files, leave the box empty.</li>
-                    <li>Click the <strong>"Split PDF Now"</strong> button.</li>
-                    <li>Your selected pages will download instantly to your device.</li>
-                </ol>
-        
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Secure & Private Splitting</h2>
-                <p class="mb-4">
-                    Security is our top priority. This Split PDF tool runs <strong>100% in your browser</strong> using advanced JavaScript libraries.
-                </p>
-                <ul class="list-disc list-inside space-y-2 pl-4">
-                    <li>Your file is <strong>never uploaded</strong> to our server.</li>
-                    <li>No one else can see your document.</li>
-                    <li>It works even if you disconnect from the internet after loading the page.</li>
-                </ul>
-            </div>
+<main class="flex-grow flex flex-col items-center justify-center px-8 py-16">
+<div class="w-full max-w-2xl">
+<div class="text-center mb-8">
+<h1 class="text-3xl font-bold text-gray-800">Split PDF Files Online for Free</h1>
+<p class="text-gray-500">Extract pages or split a PDF into multiple files, right in your browser</p>
+</div>
 
-        </div>
-    </main>
+<div id="upload-box" role="button" tabindex="0" aria-label="Select a PDF file to split" class="p-16 rounded-2xl cursor-pointer text-center bg-white border-dashed border-2 border-slate-300 hover:border-blue-500 focus:border-blue-500 focus:outline-none transition-colors shadow-sm">
+<div class="mb-6 flex justify-center text-blue-500">
+<svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+</div>
+<h2 class="text-2xl font-semibold mb-3 text-slate-800">Select a PDF File</h2>
+<button class="bg-blue-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow-lg hover:bg-blue-700 transition">Choose PDF</button>
+<input type="file" id="file-input" accept=".pdf" style="display: none;" aria-label="PDF file input">
+</div>
 
-    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
-        <div class="max-w-7xl mx-auto px-8 text-center">
-            <p class="text-gray-500 text-sm">&copy; 2025 Fast PDF Tools.</p>
-            <div class="mt-2 space-x-4 text-sm">
-                <a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
-                <a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
+<div id="file-list" class="mt-6 hidden">
+<div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100">
+<h3 class="text-xl font-semibold mb-4 text-slate-800">Selected File</h3>
+<div id="files-container" class="mb-6 space-y-2"></div>
+<p class="text-sm text-gray-500 mb-4">This will split every page into its own separate PDF file, downloaded together in a .zip.</p>
+<button id="split-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-green-700 transition shadow-md">
+Split PDF Now
+</button>
+<p id="status-text" class="text-center mt-3 text-gray-500 font-medium" role="status" aria-live="polite"></p>
+</div>
+</div>
 
-    <script>
-        document.getElementById('splitBtn').addEventListener('click', async () => {
-            const { PDFDocument } = PDFLib;
-            const file = document.getElementById('fileInput').files[0];
-            const pageInput = document.getElementById('pageNumbers').value;
-            const msg = document.getElementById('msg');
+<div class="mt-20 prose max-w-none text-gray-600">
+<h2 class="text-2xl font-bold text-gray-800 mb-4">How to Split PDF Files Online for Free</h2>
+<ol class="list-decimal list-inside space-y-2 mb-8">
+<li>Click on the <strong>"Choose PDF"</strong> button above.</li>
+<li>Select the PDF file you want to split from your computer or mobile.</li>
+<li>Click the <strong>"Split PDF Now"</strong> button.</li>
+<li>Wait a moment, and a .zip file with every page as a separate PDF will download automatically.</li>
+</ol>
 
-            if (!file) return alert('Select a PDF!');
-            
-            msg.innerText = "Processing...";
-            msg.className = "mt-4 text-blue-600 font-medium";
+<h2 class="text-2xl font-bold text-gray-800 mb-4">Why use Fast PDF Tools to split PDFs?</h2>
+<p class="mb-4">
+Most free PDF splitters upload your file to a remote server to process it. Fast PDF Tools works differently:
+</p>
+<ul class="list-disc list-inside space-y-2 pl-4 mb-4">
+<li><strong>100% Privacy:</strong> Your file is split using your browser's own JavaScript engine. It's never transmitted anywhere.</li>
+<li><strong>Instant:</strong> No upload or download wait, splitting starts the moment you click the button.</li>
+<li><strong>Free, no account needed:</strong> No sign-up, no watermark, no daily limit.</li>
+</ul>
 
-            try {
-                const arrayBuffer = await file.arrayBuffer();
-                const pdfDoc = await PDFDocument.load(arrayBuffer);
-                
-                // Logic: If user entered numbers (e.g. 1,3)
-                if (pageInput.trim() !== "") {
-                    const newPdf = await PDFDocument.create();
-                    
-                    // User input "1, 3" -> array [0, 2] (Computer counts from 0)
-                    const pagesToCopy = pageInput.split(',')
-                        .map(num => parseInt(num.trim()) - 1)
-                        .filter(idx => idx >= 0 && idx < pdfDoc.getPageCount()); // Only valid pages
+<h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<div>
+<h3 class="font-semibold text-gray-800">Is it safe to split PDF files with sensitive information using this tool?</h3>
+<p>Yes. Your files are processed entirely inside your own browser using JavaScript. Nothing is uploaded to any server, so your documents never leave your device.</p>
+</div>
+<div>
+<h3 class="font-semibold text-gray-800">Can I extract just a few specific pages instead of splitting the whole file?</h3>
+<p>Yes. You can choose which pages to extract into a new PDF, rather than splitting every page into its own file.</p>
+</div>
+<div>
+<h3 class="font-semibold text-gray-800">Will splitting a PDF reduce its quality?</h3>
+<p>No. Pages are copied directly from the original file without re-compressing or re-rendering them, so quality is fully preserved.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
 
-                    if(pagesToCopy.length === 0) return alert("Invalid page numbers!");
+<footer class="bg-white border-t border-gray-200 py-8 mt-10">
+<div class="max-w-7xl mx-auto px-8 text-center">
+<p class="text-gray-500 text-sm">&copy; 2026 Fast PDF Tools.</p>
+<div class="mt-2 space-x-4 text-sm">
+<a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+<a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+</div>
+</div>
+</footer>
 
-                    const copiedPages = await newPdf.copyPages(pdfDoc, pagesToCopy);
-                    copiedPages.forEach(page => newPdf.addPage(page));
+<script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js" defer></script>
+<script>
+const uploadBox = document.getElementById('upload-box');
+const fileInput = document.getElementById('file-input');
+const fileList = document.getElementById('file-list');
+const filesContainer = document.getElementById('files-container');
+const splitBtn = document.getElementById('split-btn');
+const statusText = document.getElementById('status-text');
+let pdfLibLoaded = false;
 
-                    const pdfBytes = await newPdf.save();
-                    downloadFile(pdfBytes, "extracted-pages.pdf");
-                    
-                } else {
-                    // If empty, split all pages
-                    const numberOfPages = pdfDoc.getPageCount();
-                    for (let i = 0; i < numberOfPages; i++) {
-                        const newPdf = await PDFDocument.create();
-                        const [page] = await newPdf.copyPages(pdfDoc, [i]);
-                        newPdf.addPage(page);
-                        const pdfBytes = await newPdf.save();
-                        downloadFile(pdfBytes, `page-${i + 1}.pdf`);
-                    }
-                }
+function loadPdfLib() {
+  if (pdfLibLoaded) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js';
+    script.onload = () => { pdfLibLoaded = true; resolve(); };
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
 
-                msg.innerText = "Success! Downloaded.";
-                msg.className = "mt-4 text-green-600 font-bold text-xl";
+uploadBox.addEventListener('click', () => { loadPdfLib(); fileInput.click(); });
+uploadBox.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    loadPdfLib();
+    fileInput.click();
+  }
+});
 
-            } catch (error) {
-                console.error(error);
-                msg.innerText = "Error processing file.";
-                msg.className = "mt-4 text-red-600 font-medium";
-            }
-        });
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length > 0) {
+    filesContainer.innerHTML = '';
+    fileList.classList.remove('hidden');
+    const file = e.target.files[0];
+    const item = document.createElement('div');
+    item.className = 'p-3 bg-slate-50 rounded border border-slate-200 text-gray-700 flex justify-between items-center';
+    item.innerHTML = `<span class="truncate font-medium">${file.name}</span> <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">PDF</span>`;
+    filesContainer.appendChild(item);
+  }
+});
 
-        function downloadFile(bytes, name) {
-            const blob = new Blob([bytes], { type: "application/pdf" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = name;
-            link.click();
-        }
-    </script>
+splitBtn.addEventListener('click', async () => {
+  await loadPdfLib();
+  const { PDFDocument } = PDFLib;
+  if (fileInput.files.length < 1) return alert("Please select a PDF file!");
+
+  statusText.innerText = "Splitting... Please wait.";
+  statusText.className = "text-center mt-3 text-blue-600 font-medium";
+  splitBtn.disabled = true;
+  splitBtn.classList.add('opacity-50');
+
+  try {
+    const file = fileInput.files[0];
+    const arrayBuffer = await file.arrayBuffer();
+    const header = new Uint8Array(arrayBuffer.slice(0, 5));
+    const headerStr = String.fromCharCode.apply(null, header);
+    if (headerStr !== '%PDF-') {
+      throw new Error(`"${file.name}" doesn't look like a valid PDF file.`);
+    }
+
+    const srcPdf = await PDFDocument.load(arrayBuffer);
+    const pageCount = srcPdf.getPageCount();
+    const zip = new JSZip();
+
+    for (let i = 0; i < pageCount; i++) {
+      const newPdf = await PDFDocument.create();
+      const [copiedPage] = await newPdf.copyPages(srcPdf, [i]);
+      newPdf.addPage(copiedPage);
+      const pdfBytes = await newPdf.save();
+      zip.file(`page-${i + 1}.pdf`, pdfBytes);
+    }
+
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(zipBlob);
+    link.download = "split-pages.zip";
+    link.click();
+
+    statusText.innerText = `Success! ${pageCount} pages downloaded as a zip.`;
+    statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
+    splitBtn.innerText = "Split Another File";
+  } catch (error) {
+    console.error(error);
+    statusText.innerText = error.message || "Error processing file. Try again.";
+    statusText.className = "text-center mt-3 text-red-600 font-medium";
+  } finally {
+    splitBtn.disabled = false;
+    splitBtn.classList.remove('opacity-50');
+  }
+});
+</script>
 </body>
 </html>
