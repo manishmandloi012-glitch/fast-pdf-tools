@@ -226,6 +226,7 @@ mergeBtn.addEventListener('click', async () => {
     link.download = "merged-document.pdf";
     link.click();
     statusText.innerText = "Success! Merged PDF Downloaded.";
+    if (typeof gtag === 'function') { gtag('event', 'tool_used', { tool_name: 'merge' }); }
     statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
     mergeBtn.innerText = "Merge More Files";
   } catch (error) {
