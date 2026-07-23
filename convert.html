@@ -240,6 +240,7 @@ convertBtn.addEventListener('click', async () => {
     await html2pdf().set(opt).from(previewContainer).save();
 
     statusText.innerText = "Success! PDF Downloaded.";
+    if (typeof gtag === 'function') { gtag('event', 'tool_used', { tool_name: 'word_to_pdf' }); }
     statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
     convertBtn.innerText = "Convert Another File";
   } catch (error) {
