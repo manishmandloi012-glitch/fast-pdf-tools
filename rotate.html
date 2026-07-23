@@ -252,6 +252,7 @@ rotateBtn.addEventListener('click', async () => {
     link.click();
 
     statusText.innerText = "Success! Rotated PDF Downloaded.";
+    if (typeof gtag === 'function') { gtag('event', 'tool_used', { tool_name: 'rotate' }); }
     statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
     rotateBtn.innerText = "Rotate Another File";
   } catch (error) {
