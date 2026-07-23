@@ -233,6 +233,7 @@ splitBtn.addEventListener('click', async () => {
     link.click();
 
     statusText.innerText = `Success! ${pageCount} pages downloaded as a zip.`;
+    if (typeof gtag === 'function') { gtag('event', 'tool_used', { tool_name: 'split' }); }
     statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
     splitBtn.innerText = "Split Another File";
   } catch (error) {
