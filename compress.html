@@ -228,6 +228,7 @@ compressBtn.addEventListener('click', async () => {
     link.click();
 
     statusText.innerText = `Done! ${originalSizeMB} MB → ${newSizeMB} MB`;
+    if (typeof gtag === 'function') { gtag('event', 'tool_used', { tool_name: 'compress' }); }
     statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
     compressBtn.innerText = "Compress Another File";
   } catch (error) {
