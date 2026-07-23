@@ -10,6 +10,8 @@
 <meta property="og:description" content="Merge, split, compress, and convert PDFs online for free. 100% private, no upload needed.">
 <meta property="og:url" content="https://www.fast-pdf-tools.com/">
 <meta property="og:type" content="website">
+
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -17,8 +19,38 @@
   gtag('js', new Date());
   gtag('config', 'G-617N8QHJRJ');
 </script>
+
+<!-- GOOGLE ADSENSE -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+
+<!-- TAILWIND CSS & FONTS -->
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            50: '#eef2ff',
+            100: '#e0e7ff',
+            500: '#6366f1',
+            600: '#4f46e5',
+            700: '#4338ca',
+            900: '#0b0f17',
+          }
+        }
+      }
+    }
+  }
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -60,122 +92,207 @@
   ]
 }
 </script>
-</head>
-<body class="min-h-full bg-gray-50 flex flex-col">
 
-<header class="py-6 px-8 bg-white shadow-sm">
-<div class="max-w-7xl mx-auto flex justify-between items-center">
-<div class="text-2xl font-bold text-blue-600">
-<a href="index.html">FAST PDF TOOLS</a>
-</div>
-<nav class="flex gap-8 items-center">
-<a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">PDF Tools</a>
-<a href="blog.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Blog</a>
-<div class="relative group">
-<button class="text-base font-medium text-gray-700 hover:text-blue-600">More Products</button>
-<div class="absolute hidden group-hover:block bg-white shadow-lg rounded-xl mt-2 py-2 w-56 border border-gray-100">
-<a href="products.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">📂 All Products</a>
-<a href="products.html?cat=image" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">🖼️ Image Tools</a>
-<a href="products.html?cat=resume" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">📄 Resume Builder</a>
-</div>
-</div>
-</nav>
-</div>
+<style>
+  body {
+    background-color: #0b0f17;
+    color: #f8fafc;
+    background-image: 
+      radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 45%);
+    background-attachment: fixed;
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .glass-card:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+  }
+  .glass-nav {
+    background: rgba(11, 15, 23, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+</style>
+</head>
+
+<body class="min-h-screen flex flex-col font-sans antialiased">
+
+<!-- HEADER / NAVIGATION -->
+<header class="sticky top-0 z-50 glass-nav py-4 px-6 md:px-12">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-500 to-cyan-400 flex items-center justify-center font-black text-white text-lg shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+        ⚡
+      </div>
+      <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-brand-100 transition">FAST PDF TOOLS</span>
+    </a>
+    
+    <nav class="hidden md:flex gap-8 items-center">
+      <a href="index.html" class="text-sm font-semibold text-slate-300 hover:text-white transition">PDF Tools</a>
+      <a href="blog.html" class="text-sm font-semibold text-slate-300 hover:text-white transition">Blog</a>
+      <div class="relative group">
+        <button class="text-sm font-semibold text-slate-300 hover:text-white transition flex items-center gap-1 py-2">
+          More Products 
+          <svg class="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="absolute right-0 hidden group-hover:block glass-card rounded-2xl p-2 w-60 shadow-2xl border border-slate-700/50 mt-1">
+          <a href="products.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition">📂 All Products</a>
+          <a href="products.html?cat=image" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition">🖼️ Image Tools</a>
+          <a href="products.html?cat=resume" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition">📄 Resume Builder</a>
+        </div>
+      </div>
+    </nav>
+  </div>
 </header>
 
-<main class="flex-grow px-8 py-16">
-<div class="max-w-5xl mx-auto text-center mb-16">
-<h1 class="text-4xl font-bold text-gray-800 mb-3">All PDF Tools in One Place</h1>
-<p class="text-lg text-gray-500">Fast, secure, and easy-to-use PDF tools that work entirely in your browser.</p>
-</div>
+<!-- MAIN BODY -->
+<main class="flex-grow px-6 md:px-12 py-16">
+  
+  <!-- HERO SECTION -->
+  <div class="max-w-4xl mx-auto text-center mb-16">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-brand-500 text-xs font-bold tracking-wide uppercase mb-6 border border-brand-500/30">
+      <span>🔒 100% Client-Side Privacy</span>
+    </div>
+    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
+      All PDF Tools in <span class="bg-gradient-to-r from-brand-500 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">One Secure Place</span>
+    </h1>
+    <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
+      Fast, secure, and intuitive PDF utilities running completely inside your browser. Your files never touch a server.
+    </p>
+  </div>
 
-<div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-<a href="merge.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">📑</div>
-<div class="font-semibold text-gray-800">Merge PDF</div>
-</a>
-<a href="split.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">✂️</div>
-<div class="font-semibold text-gray-800">Split PDF</div>
-</a>
-<a href="compress.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">🗜️</div>
-<div class="font-semibold text-gray-800">Compress PDF</div>
-</a>
-<a href="converter.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">🖼️</div>
-<div class="font-semibold text-gray-800">Image to PDF</div>
-</a>
-<a href="rotate.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">🔄</div>
-<div class="font-semibold text-gray-800">Rotate PDF</div>
-</a>
-<a href="reorder.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">🔀</div>
-<div class="font-semibold text-gray-800">Reorder Pages</div>
-</a>
-<a href="pdf-to-jpg.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">🖨️</div>
-<div class="font-semibold text-gray-800">PDF to JPG</div>
-</a>
-<a href="convert.html" class="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-md transition border border-gray-100">
-<div class="text-3xl mb-2">📝</div>
-<div class="font-semibold text-gray-800">Word to PDF</div>
-</a>
-</div>
+  <!-- TOOL GRID SECTION -->
+  <div class="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 mb-24">
+    
+    <a href="merge.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">📑</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">Merge PDF</div>
+      <p class="text-xs text-slate-400 mt-1">Combine multiple files</p>
+    </a>
 
-<div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 mb-20">
-<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-<div class="text-3xl mb-3">🔒</div>
-<h2 class="text-xl font-bold text-gray-800 mb-2">100% Secure & Private</h2>
-<p class="text-gray-600">Unlike most online PDF tools, we never upload your files to a server. Every tool runs entirely inside your browser using JavaScript, so your documents never leave your device.</p>
-</div>
-<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-<div class="text-3xl mb-3">⚡</div>
-<h2 class="text-xl font-bold text-gray-800 mb-2">Lightning Fast</h2>
-<p class="text-gray-600">Because there's no uploading or downloading from a server, processing starts the instant you click a button — no waiting in line behind other users' files.</p>
-</div>
-<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-<div class="text-3xl mb-3">💸</div>
-<h2 class="text-xl font-bold text-gray-800 mb-2">Completely Free</h2>
-<p class="text-gray-600">No hidden costs, no premium plans, no watermarks, and no sign-up required. Use every tool as many times as you need.</p>
-</div>
-<div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-<div class="text-3xl mb-3">📱</div>
-<h2 class="text-xl font-bold text-gray-800 mb-2">Works on Any Device</h2>
-<p class="text-gray-600">Whether you're on a phone, tablet, or laptop — Windows, Mac, Android, or iOS — every tool works right in your browser, no installation needed.</p>
-</div>
-</div>
+    <a href="split.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">✂️</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">Split PDF</div>
+      <p class="text-xs text-slate-400 mt-1">Separate pages easily</p>
+    </a>
 
-<div class="my-10 text-center"><ins class="adsbygoogle"     style="display:block"     data-ad-client="ca-pub-3622708201012792"     data-ad-slot="9293912959"     data-ad-format="auto"     data-full-width-responsive="true"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script></div>
-<div class="max-w-3xl mx-auto prose">
-<h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
-<div class="space-y-4">
-<div>
-<h3 class="font-semibold text-gray-800">Is Fast PDF Tools really free?</h3>
-<p class="text-gray-600">Yes. Every tool is free to use with no account, no watermark, and no usage limit.</p>
-</div>
-<div>
-<h3 class="font-semibold text-gray-800">Do you store or see my files?</h3>
-<p class="text-gray-600">No. All processing happens locally in your browser using JavaScript. Your files are never uploaded to any server, so nobody but you ever sees them.</p>
-</div>
-<div>
-<h3 class="font-semibold text-gray-800">Do I need to install anything?</h3>
-<p class="text-gray-600">No installation is needed. Fast PDF Tools works directly in your web browser on Windows, Mac, Android, and iOS.</p>
-</div>
-</div>
-</div>
+    <a href="compress.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">🗜️</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">Compress PDF</div>
+      <p class="text-xs text-slate-400 mt-1">Reduce document size</p>
+    </a>
+
+    <a href="converter.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">🖼️</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">Image to PDF</div>
+      <p class="text-xs text-slate-400 mt-1">Convert JPG/PNG to PDF</p>
+    </a>
+
+    <a href="rotate.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">🔄</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">Rotate PDF</div>
+      <p class="text-xs text-slate-400 mt-1">Rotate document pages</p>
+    </a>
+
+    <a href="reorder.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">🔀</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">Reorder Pages</div>
+      <p class="text-xs text-slate-400 mt-1">Rearrange PDF pages</p>
+    </a>
+
+    <a href="pdf-to-jpg.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">🖨️</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">PDF to JPG</div>
+      <p class="text-xs text-slate-400 mt-1">Extract PDF images</p>
+    </a>
+
+    <a href="convert.html" class="glass-card rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center justify-center group relative overflow-hidden">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-3xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">📝</div>
+      <div class="font-bold text-white text-base group-hover:text-brand-500 transition">Word to PDF</div>
+      <p class="text-xs text-slate-400 mt-1">Docx to PDF conversion</p>
+    </a>
+
+  </div>
+
+  <!-- VALUE PROPOSITIONS -->
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 mb-20">
+    
+    <div class="glass-card p-8 rounded-3xl border border-slate-800">
+      <div class="text-3xl mb-4 p-3 bg-brand-500/10 rounded-2xl w-fit border border-brand-500/20">🔒</div>
+      <h2 class="text-xl font-bold text-white mb-2">100% Secure & Private</h2>
+      <p class="text-slate-400 text-sm leading-relaxed">Unlike most online PDF tools, we never upload your files to a server. Every tool runs entirely inside your browser using client-side JavaScript, so your sensitive documents never leave your device.</p>
+    </div>
+
+    <div class="glass-card p-8 rounded-3xl border border-slate-800">
+      <div class="text-3xl mb-4 p-3 bg-brand-500/10 rounded-2xl w-fit border border-brand-500/20">⚡</div>
+      <h2 class="text-xl font-bold text-white mb-2">Lightning Fast</h2>
+      <p class="text-slate-400 text-sm leading-relaxed">Because there's zero file uploading or downloading latency from a remote server, processing starts the instant you click a button—no queue times or server delays.</p>
+    </div>
+
+    <div class="glass-card p-8 rounded-3xl border border-slate-800">
+      <div class="text-3xl mb-4 p-3 bg-brand-500/10 rounded-2xl w-fit border border-brand-500/20">💸</div>
+      <h2 class="text-xl font-bold text-white mb-2">Completely Free</h2>
+      <p class="text-slate-400 text-sm leading-relaxed">No hidden costs, no premium subscription tiers, no added watermarks, and zero account sign-up required. Use every tool as often as you need.</p>
+    </div>
+
+    <div class="glass-card p-8 rounded-3xl border border-slate-800">
+      <div class="text-3xl mb-4 p-3 bg-brand-500/10 rounded-2xl w-fit border border-brand-500/20">📱</div>
+      <h2 class="text-xl font-bold text-white mb-2">Works on Any Device</h2>
+      <p class="text-slate-400 text-sm leading-relaxed">Whether you are on a mobile phone, tablet, or desktop computer—Windows, Mac, Android, or iOS—every tool works directly in your modern web browser.</p>
+    </div>
+
+  </div>
+
+  <!-- ADSENSE CONTAINER -->
+  <div class="my-12 text-center max-w-5xl mx-auto p-4 glass-card rounded-2xl border border-dashed border-slate-700">
+    <ins class="adsbygoogle" 
+         style="display:block" 
+         data-ad-client="ca-pub-3622708201012792" 
+         data-ad-slot="9293912959" 
+         data-ad-format="auto" 
+         data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <!-- FAQ SECTION -->
+  <div class="max-w-3xl mx-auto glass-card p-8 md:p-12 rounded-3xl border border-slate-800">
+    <h2 class="text-2xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-6">
+      <div class="border-b border-slate-800/80 pb-4">
+        <h3 class="font-semibold text-white text-lg mb-2">Is Fast PDF Tools really free?</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">Yes. Every tool is free to use with no account, no watermark, and no usage limit.</p>
+      </div>
+      <div class="border-b border-slate-800/80 pb-4">
+        <h3 class="font-semibold text-white text-lg mb-2">Do you store or see my files?</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">No. All processing happens locally in your browser using JavaScript. Your files are never uploaded to any server, so nobody but you ever sees them.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-white text-lg mb-2">Do I need to install anything?</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">No installation is needed. Fast PDF Tools works directly in your web browser on Windows, Mac, Android, and iOS.</p>
+      </div>
+    </div>
+  </div>
+
 </main>
 
-<footer class="bg-white border-t border-gray-200 py-8 mt-10">
-<div class="max-w-7xl mx-auto px-8 text-center">
-<p class="text-gray-500 text-sm">&copy; 2026 Fast PDF Tools. All rights reserved.</p>
-<div class="mt-2 space-x-4 text-sm">
-<a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
-<a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
-<a href="contact.html" class="text-gray-600 hover:text-blue-600">Contact</a>
-</div>
-</div>
+<!-- FOOTER -->
+<footer class="glass-nav border-t border-slate-800/80 py-10">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <p class="text-slate-400 text-sm">&copy; 2026 Fast PDF Tools. All rights reserved.</p>
+    <div class="mt-4 flex justify-center gap-6 text-sm">
+      <a href="privacy.html" class="text-slate-400 hover:text-white transition">Privacy Policy</a>
+      <a href="terms.html" class="text-slate-400 hover:text-white transition">Terms of Service</a>
+      <a href="contact.html" class="text-slate-400 hover:text-white transition">Contact</a>
+    </div>
+  </div>
 </footer>
 
 </body>
