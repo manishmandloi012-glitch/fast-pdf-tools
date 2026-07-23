@@ -252,6 +252,7 @@ reorderBtn.addEventListener('click', async () => {
     link.click();
 
     statusText.innerText = "Success! Reordered PDF Downloaded.";
+    if (typeof gtag === 'function') { gtag('event', 'tool_used', { tool_name: 'reorder' }); }
     statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
     reorderBtn.innerText = "Reorder Another File";
   } catch (error) {
