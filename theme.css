@@ -1,0 +1,63 @@
+:root {
+  --paper: #FAF9F5;
+  --ink: #1C2333;
+  --accent: #E8871E;
+  --accent-dark: #C96F14;
+  --success: #2F6F4E;
+  --muted: #6B7280;
+  --card-border: #E5E1D8;
+}
+
+body {
+  background: var(--paper) !important;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+  color: var(--ink);
+}
+
+.brand-accent {
+  color: var(--accent) !important;
+}
+
+.btn-primary {
+  background: var(--accent) !important;
+  border: none;
+  transition: background 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--accent-dark) !important;
+}
+
+.paper-card {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.paper-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 22px 22px 0;
+  border-color: transparent var(--paper) transparent transparent;
+  box-shadow: -2px 2px 3px rgba(0,0,0,0.06);
+}
+
+.upload-zone {
+  border: 2px dashed var(--card-border) !important;
+  background: #fff !important;
+  border-radius: 16px;
+  transition: border-color 0.2s ease;
+}
+.upload-zone:hover, .upload-zone:focus {
+  border-color: var(--accent) !important;
+}
