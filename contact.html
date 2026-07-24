@@ -6,6 +6,8 @@
 <title>Contact Us - Fast PDF Tools</title>
 <meta name="description" content="Contact the Fast PDF Tools team for support, feedback, or inquiries.">
 <link rel="canonical" href="https://www.fast-pdf-tools.com/contact.html">
+
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -13,47 +15,146 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-617N8QHJRJ');
 </script>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
 
-<header class="py-5 px-8 bg-white shadow-sm">
-<div class="max-w-7xl mx-auto font-bold text-blue-600 text-xl">
-<a href="index.html">FAST PDF TOOLS</a>
-</div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+
+<!-- TAILWIND CSS & FONTS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        },
+        colors: {
+          dark: {
+            900: '#06090e',
+            800: '#0b0f17',
+            700: '#141c2b',
+          },
+          brand: {
+            violet: '#8b5cf6',
+            indigo: '#6366f1',
+            cyan: '#06b6d4',
+          }
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  body {
+    background-color: #06090e;
+    color: #f8fafc;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+  
+  .neo-glass {
+    background: rgba(18, 25, 38, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .neo-glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .neo-glass-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(139, 92, 246, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -10px rgba(99, 102, 241, 0.25);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-brand-indigo selection:text-white">
+
+<!-- NAVIGATION HEADER -->
+<header class="sticky top-0 z-50 neo-glass py-4 px-6 md:px-12 border-b border-white/10">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-violet via-brand-indigo to-brand-cyan flex items-center justify-center font-black text-white text-xl shadow-lg shadow-brand-indigo/30 group-hover:scale-105 transition-transform">
+        ⚡
+      </div>
+      <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-brand-cyan transition">
+        FAST PDF <span class="bg-gradient-to-r from-brand-violet to-brand-cyan bg-clip-text text-transparent">TOOLS</span>
+      </span>
+    </a>
+    
+    <nav class="hidden md:flex gap-8 items-center">
+      <a href="index.html" class="text-sm font-semibold text-slate-300 hover:text-white transition hover:scale-105">PDF Tools</a>
+      <a href="blog.html" class="text-sm font-semibold text-slate-300 hover:text-white transition hover:scale-105">Blog</a>
+      <div class="relative group">
+        <button class="text-sm font-semibold text-slate-300 hover:text-white transition flex items-center gap-1.5 py-2">
+          More Products 
+          <svg class="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="absolute right-0 hidden group-hover:block neo-glass rounded-2xl p-2 w-60 shadow-2xl border border-white/10 mt-1">
+          <a href="products.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition">📂 All Products</a>
+          <a href="products.html?cat=image" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition">🖼️ Image Tools</a>
+          <a href="products.html?cat=resume" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition">📄 Resume Builder</a>
+        </div>
+      </div>
+    </nav>
+  </div>
 </header>
 
-<main class="max-w-3xl mx-auto py-16 px-8 flex-grow text-center">
-<h1 class="text-4xl font-bold mb-6 text-gray-900">Contact Us</h1>
-<p class="text-lg text-gray-600 mb-8">
+<main class="flex-grow max-w-3xl mx-auto py-12 md:py-20 px-6 md:px-12 w-full text-center">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full neo-glass text-brand-cyan text-xs font-bold tracking-widest uppercase mb-6 border border-brand-cyan/30 shadow-inner">
+  <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse"></span>
+  Direct Support & Feedback
+</div>
+<h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white tracking-tight">Contact <span class="bg-gradient-to-r from-brand-violet via-brand-indigo to-brand-cyan bg-clip-text text-transparent glow-text">Us</span></h1>
+<p class="text-base md:text-lg text-slate-400 mb-10 leading-relaxed">
 Have questions, suggestions, or facing issues with our tools? We'd love to hear from you.
 </p>
 
-<div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 inline-block w-full text-left">
-<h2 class="text-xl font-bold text-gray-800 mb-4">Get in Touch</h2>
-<div class="space-y-4">
+<div class="paper-card neo-glass p-8 rounded-3xl border border-white/10 w-full text-left shadow-xl">
+<h2 class="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">Get in Touch</h2>
+<div class="space-y-6">
 <div>
-<p class="text-sm text-gray-500 font-bold uppercase">Email Support</p>
-<a href="mailto:manishmandloi012@gmail.com" class="text-blue-600 text-lg hover:underline">manishmandloi012@gmail.com</a>
+<p class="text-xs text-brand-cyan font-bold uppercase tracking-wider mb-1">Email Support</p>
+<a href="mailto:manishmandloi012@gmail.com" class="text-brand-violet text-lg font-semibold hover:text-brand-cyan transition underline decoration-brand-violet/40 hover:decoration-brand-cyan">manishmandloi012@gmail.com</a>
 </div>
 <div>
-<p class="text-sm text-gray-500 font-bold uppercase">Response Time</p>
-<p class="text-gray-700">We usually reply within 24-48 hours.</p>
+<p class="text-xs text-brand-cyan font-bold uppercase tracking-wider mb-1">Response Time</p>
+<p class="text-slate-300">We usually reply within 24-48 hours.</p>
 </div>
 </div>
 </div>
 </main>
 
-<footer class="bg-white border-t border-gray-200 py-10 mt-auto">
-<div class="max-w-7xl mx-auto px-8 text-center">
-<p class="text-gray-500 mb-4">&copy; 2026 Fast PDF Tools. All rights reserved.</p>
-<div class="space-x-6">
-<a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
-<a href="privacy.html" class="text-gray-600 hover:text-blue-600 font-medium">Privacy Policy</a>
-<a href="terms.html" class="text-gray-600 hover:text-blue-600 font-medium">Terms of Service</a>
-<a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
-</div>
-</div>
+<!-- FOOTER -->
+<footer class="neo-glass border-t border-white/10 py-10 mt-auto">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <p class="text-slate-400 text-sm">&copy; 2026 Fast PDF Tools. All rights reserved.</p>
+    <div class="mt-4 flex justify-center gap-6 text-sm">
+      <a href="privacy.html" class="text-slate-400 hover:text-white transition">Privacy Policy</a>
+      <a href="terms.html" class="text-slate-400 hover:text-white transition">Terms of Service</a>
+      <a href="contact.html" class="text-slate-400 hover:text-white transition">Contact</a>
+    </div>
+  </div>
 </footer>
 
 </body>
