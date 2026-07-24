@@ -10,6 +10,8 @@
 <meta property="og:description" content="Combine multiple PDFs into one file instantly. 100% private, no upload needed.">
 <meta property="og:url" content="https://www.fast-pdf-tools.com/merge.html">
 <meta property="og:type" content="website">
+
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-617N8QHJRJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -17,8 +19,44 @@
   gtag('js', new Date());
   gtag('config', 'G-617N8QHJRJ');
 </script>
+
+<!-- GOOGLE ADSENSE -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3622708201012792" crossorigin="anonymous"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+
+<!-- TAILWIND CSS & FONTS -->
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        },
+        colors: {
+          dark: {
+            900: '#06090e',
+            800: '#0b0f17',
+            700: '#141c2b',
+          },
+          brand: {
+            violet: '#8b5cf6',
+            indigo: '#6366f1',
+            cyan: '#06b6d4',
+          }
+        }
+      }
+    }
+  }
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -62,95 +100,175 @@
   ]
 }
 </script>
-</head>
-<body class="min-h-full bg-gray-50 flex flex-col">
 
-<header class="py-6 px-8 bg-white shadow-sm">
-<div class="max-w-7xl mx-auto flex justify-between items-center">
-<div class="text-2xl font-bold text-blue-600">
-<a href="index.html">FAST PDF TOOLS</a>
-</div>
-<nav class="flex gap-8">
-<a href="index.html" class="text-base font-medium text-gray-700 hover:text-blue-600">Home</a>
-</nav>
-</div>
+<style>
+  body {
+    background-color: #06090e;
+    color: #f8fafc;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+  
+  .neo-glass {
+    background: rgba(18, 25, 38, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .neo-glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .neo-glass-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(139, 92, 246, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -10px rgba(99, 102, 241, 0.25);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+</style>
+</head>
+
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-brand-indigo selection:text-white">
+
+<!-- NAVIGATION HEADER -->
+<header class="sticky top-0 z-50 neo-glass py-4 px-6 md:px-12 border-b border-white/10">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-violet via-brand-indigo to-brand-cyan flex items-center justify-center font-black text-white text-xl shadow-lg shadow-brand-indigo/30 group-hover:scale-105 transition-transform">
+        ⚡
+      </div>
+      <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-brand-cyan transition">
+        FAST PDF <span class="bg-gradient-to-r from-brand-violet to-brand-cyan bg-clip-text text-transparent">TOOLS</span>
+      </span>
+    </a>
+    
+    <nav class="hidden md:flex gap-8 items-center">
+      <a href="index.html" class="text-sm font-semibold text-slate-300 hover:text-white transition hover:scale-105">PDF Tools</a>
+      <a href="blog.html" class="text-sm font-semibold text-slate-300 hover:text-white transition hover:scale-105">Blog</a>
+      <div class="relative group">
+        <button class="text-sm font-semibold text-slate-300 hover:text-white transition flex items-center gap-1.5 py-2">
+          More Products 
+          <svg class="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="absolute right-0 hidden group-hover:block neo-glass rounded-2xl p-2 w-60 shadow-2xl border border-white/10 mt-1">
+          <a href="products.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition">📂 All Products</a>
+          <a href="products.html?cat=image" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition">🖼️ Image Tools</a>
+          <a href="products.html?cat=resume" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition">📄 Resume Builder</a>
+        </div>
+      </div>
+    </nav>
+  </div>
 </header>
 
-<main class="flex-grow flex flex-col items-center justify-center px-8 py-16">
-<div class="w-full max-w-2xl">
-<div class="text-center mb-8">
-<h1 class="text-3xl font-bold text-gray-800">Merge PDF Files Online for Free</h1>
-<p class="text-gray-500">Combine multiple PDFs into one file instantly, right in your browser</p>
+<main class="flex-grow flex flex-col items-center justify-center px-6 md:px-12 py-12 md:py-20">
+<div class="w-full max-w-3xl">
+<div class="text-center mb-10">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full neo-glass text-brand-cyan text-xs font-bold tracking-widest uppercase mb-6 border border-brand-cyan/30 shadow-inner">
+  <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse"></span>
+  100% Browser Processing • Zero Server Uploads
+</div>
+<h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Merge PDF Files Online for Free</h1>
+<p class="text-slate-400 text-base md:text-lg max-w-xl mx-auto">Combine multiple PDFs into one file instantly, right in your browser</p>
 </div>
 
-<div id="upload-box" role="button" tabindex="0" aria-label="Select PDF files to merge" class="p-16 rounded-2xl cursor-pointer text-center bg-white border-dashed border-2 border-slate-300 hover:border-blue-500 focus:border-blue-500 focus:outline-none transition-colors shadow-sm">
-<div class="mb-6 flex justify-center text-blue-500">
+<div id="upload-box" role="button" tabindex="0" aria-label="Select PDF files to merge" class="upload-zone p-12 md:p-16 rounded-3xl cursor-pointer text-center neo-glass border-2 border-dashed border-white/20 hover:border-brand-violet focus:border-brand-violet focus:outline-none transition-all shadow-xl">
+<div class="mb-6 flex justify-center text-brand-violet">
 <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
 </div>
-<h2 class="text-2xl font-semibold mb-3 text-slate-800">Select PDF Files</h2>
-<button class="bg-blue-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow-lg hover:bg-blue-700 transition">Choose PDFs</button>
+<h2 class="text-2xl font-bold mb-4 text-white">Select PDF Files</h2>
+<button class="btn-primary bg-gradient-to-r from-brand-violet to-brand-indigo text-white px-8 py-3.5 rounded-xl text-lg font-semibold shadow-lg shadow-brand-indigo/30 hover:opacity-90 transition transform hover:scale-105">Choose PDFs</button>
 <input type="file" id="file-input" accept=".pdf" multiple style="display: none;" aria-label="PDF file input">
 </div>
 
-<div id="file-list" class="mt-6 hidden">
-<div class="p-6 rounded-xl bg-white shadow-sm border border-gray-100">
-<h3 class="text-xl font-semibold mb-4 text-slate-800">Files to Merge</h3>
-<div id="files-container" class="mb-6 space-y-2 max-h-60 overflow-y-auto"></div>
-<button id="merge-btn" class="w-full bg-green-600 text-white px-8 py-4 rounded-xl text-xl font-bold hover:bg-green-700 transition shadow-md">
+<div id="file-list" class="mt-8 hidden">
+<div class="paper-card neo-glass p-8 rounded-3xl border border-white/10 shadow-xl">
+<h3 class="text-xl font-bold mb-4 text-white">Files to Merge</h3>
+<div id="files-container" class="mb-6 space-y-3 max-h-60 overflow-y-auto pr-2"></div>
+<button id="merge-btn" class="btn-primary w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-8 py-4 rounded-xl text-xl font-bold hover:opacity-90 transition shadow-lg shadow-emerald-500/20">
 Merge PDFs Now
 </button>
-<p id="status-text" class="text-center mt-3 text-gray-500 font-medium" role="status" aria-live="polite"></p>
+<p id="status-text" class="text-center mt-4 text-slate-400 font-medium" role="status" aria-live="polite"></p>
 </div>
 </div>
 
-<div class="mt-20 prose max-w-none text-gray-600">
-<h2 class="text-2xl font-bold text-gray-800 mb-4">How to Merge PDF Files Online for Free</h2>
-<ol class="list-decimal list-inside space-y-2 mb-8">
-<li>Click on the <strong>"Choose PDFs"</strong> button above.</li>
+<div class="mt-16 space-y-12 text-slate-300">
+<div class="paper-card neo-glass p-8 md:p-10 rounded-3xl border border-white/10">
+<h2 class="text-2xl font-bold text-white mb-6">How to Merge PDF Files Online for Free</h2>
+<ol class="list-decimal list-inside space-y-3 text-slate-300 leading-relaxed">
+<li>Click on the <strong class="text-white">"Choose PDFs"</strong> button above.</li>
 <li>Select all the PDF files you want to combine from your computer or mobile.</li>
 <li>Review the list of files to ensure they are in the order you want.</li>
-<li>Click the <strong>"Merge PDFs Now"</strong> button.</li>
+<li>Click the <strong class="text-white">"Merge PDFs Now"</strong> button.</li>
 <li>Wait a moment, and your merged PDF will download automatically.</li>
 </ol>
+</div>
 
-<div class="my-10 text-center"><ins class="adsbygoogle"     style="display:block"     data-ad-client="ca-pub-3622708201012792"     data-ad-slot="9293912959"     data-ad-format="auto"     data-full-width-responsive="true"></ins><script>     (adsbygoogle = window.adsbygoogle || []).push({});</script></div>
-<h2 class="text-2xl font-bold text-gray-800 mb-4">Why use Fast PDF Tools to merge PDFs?</h2>
-<p class="mb-4">
+<div class="my-10 text-center"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3622708201012792" data-ad-slot="9293912959" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+
+<div class="paper-card neo-glass p-8 md:p-10 rounded-3xl border border-white/10">
+<h2 class="text-2xl font-bold text-white mb-4">Why use Fast PDF Tools to merge PDFs?</h2>
+<p class="mb-6 leading-relaxed text-slate-300">
 Most free PDF mergers upload your files to a remote server, process them there, then send back a download link. That's an extra copy of your document sitting on someone else's infrastructure. Fast PDF Tools works differently:
 </p>
-<ul class="list-disc list-inside space-y-2 pl-4 mb-4">
-<li><strong>100% Privacy:</strong> Your files are merged using your browser's own JavaScript engine. They are never transmitted anywhere.</li>
-<li><strong>No file size waiting:</strong> Because there's no upload or download step, merging starts the instant you click the button.</li>
-<li><strong>Free, no account needed:</strong> No sign-up, no watermark, no daily limit.</li>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+  <span class="text-brand-cyan text-lg">✓</span>
+  <span><strong class="text-white">100% Privacy:</strong> Your files are merged using your browser's own JavaScript engine. They are never transmitted anywhere.</span>
+</li>
+<li class="flex items-start gap-3">
+  <span class="text-brand-cyan text-lg">✓</span>
+  <span><strong class="text-white">No file size waiting:</strong> Because there's no upload or download step, merging starts the instant you click the button.</span>
+</li>
+<li class="flex items-start gap-3">
+  <span class="text-brand-cyan text-lg">✓</span>
+  <span><strong class="text-white">Free, no account needed:</strong> No sign-up, no watermark, no daily limit.</span>
+</li>
 </ul>
+</div>
 
-<h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
-<div class="space-y-4">
-<div>
-<h3 class="font-semibold text-gray-800">Is it safe to merge PDF files with sensitive information using this tool?</h3>
-<p>Yes. Your files are processed entirely inside your own browser using JavaScript. Nothing is uploaded to any server, so your documents never leave your device.</p>
+<div class="paper-card neo-glass p-8 md:p-10 rounded-3xl border border-white/10">
+<h2 class="text-2xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
+<div class="space-y-6">
+<div class="border-b border-white/10 pb-4">
+<h3 class="font-semibold text-white text-lg mb-2">Is it safe to merge PDF files with sensitive information using this tool?</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Yes. Your files are processed entirely inside your own browser using JavaScript. Nothing is uploaded to any server, so your documents never leave your device.</p>
+</div>
+<div class="border-b border-white/10 pb-4">
+<h3 class="font-semibold text-white text-lg mb-2">Is there a limit on how many PDF files I can merge?</h3>
+<p class="text-slate-400 text-sm leading-relaxed">There is no fixed limit set by the tool. The practical limit depends on your device's memory, since merging happens locally in your browser rather than on a server.</p>
 </div>
 <div>
-<h3 class="font-semibold text-gray-800">Is there a limit on how many PDF files I can merge?</h3>
-<p>There is no fixed limit set by the tool. The practical limit depends on your device's memory, since merging happens locally in your browser rather than on a server.</p>
+<h3 class="font-semibold text-white text-lg mb-2">Will merging PDFs reduce the quality of my documents?</h3>
+<p class="text-slate-400 text-sm leading-relaxed">No. This tool copies the original pages directly into the new file without re-compressing or re-rendering them, so the quality stays exactly the same as your source files.</p>
 </div>
-<div>
-<h3 class="font-semibold text-gray-800">Will merging PDFs reduce the quality of my documents?</h3>
-<p>No. This tool copies the original pages directly into the new file without re-compressing or re-rendering them, so the quality stays exactly the same as your source files.</p>
 </div>
 </div>
 </div>
 </div>
 </main>
 
-<footer class="bg-white border-t border-gray-200 py-8 mt-10">
-<div class="max-w-7xl mx-auto px-8 text-center">
-<p class="text-gray-500 text-sm">&copy; 2026 Fast PDF Tools.</p>
-<div class="mt-2 space-x-4 text-sm">
-<a href="privacy.html" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
-<a href="terms.html" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
-</div>
-</div>
+<!-- FOOTER -->
+<footer class="neo-glass border-t border-white/10 py-10 mt-16">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <p class="text-slate-400 text-sm">&copy; 2026 Fast PDF Tools. All rights reserved.</p>
+    <div class="mt-4 flex justify-center gap-6 text-sm">
+      <a href="privacy.html" class="text-slate-400 hover:text-white transition">Privacy Policy</a>
+      <a href="terms.html" class="text-slate-400 hover:text-white transition">Terms of Service</a>
+      <a href="contact.html" class="text-slate-400 hover:text-white transition">Contact</a>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -188,8 +306,8 @@ fileInput.addEventListener('change', (e) => {
     fileList.classList.remove('hidden');
     Array.from(e.target.files).forEach((file) => {
       const item = document.createElement('div');
-      item.className = 'p-3 bg-slate-50 rounded border border-slate-200 text-gray-700 flex justify-between items-center';
-      item.innerHTML = `<span class="truncate font-medium">${file.name}</span> <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">PDF</span>`;
+      item.className = 'p-3 bg-white/5 rounded-xl border border-white/10 text-slate-200 flex justify-between items-center';
+      item.innerHTML = `<span class="truncate font-medium">${file.name}</span> <span class="text-xs bg-brand-violet/20 text-brand-violet border border-brand-violet/30 px-2 py-1 rounded-lg">PDF</span>`;
       filesContainer.appendChild(item);
     });
   }
@@ -201,7 +319,7 @@ mergeBtn.addEventListener('click', async () => {
   if (fileInput.files.length < 2) return alert("Please select at least 2 PDF files!");
 
   statusText.innerText = "Merging... Please wait.";
-  statusText.className = "text-center mt-3 text-blue-600 font-medium";
+  statusText.className = "text-center mt-3 text-brand-cyan font-medium";
   mergeBtn.disabled = true;
   mergeBtn.classList.add('opacity-50');
 
@@ -227,12 +345,12 @@ mergeBtn.addEventListener('click', async () => {
     link.click();
     statusText.innerText = "Success! Merged PDF Downloaded.";
     if (typeof gtag === 'function') { gtag('event', 'tool_used', { tool_name: 'merge' }); }
-    statusText.className = "text-center mt-3 text-green-600 font-bold text-xl";
+    statusText.className = "text-center mt-3 text-emerald-400 font-bold text-xl";
     mergeBtn.innerText = "Merge More Files";
   } catch (error) {
     console.error(error);
     statusText.innerText = error.message || "Error processing file. Try again.";
-    statusText.className = "text-center mt-3 text-red-600 font-medium";
+    statusText.className = "text-center mt-3 text-rose-500 font-medium";
   } finally {
     mergeBtn.disabled = false;
     mergeBtn.classList.remove('opacity-50');
