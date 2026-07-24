@@ -1,65 +1,47 @@
 :root {
-  --bg: #F8F9FB;
-  --ink: #1F2937;
-  --muted: #6B7280;
-  --border: #E5E7EB;
-  --blue: #3B82F6;
-  --purple: #8B5CF6;
-  --orange: #F97316;
-  --green: #10B981;
-  --pink: #EC4899;
-  --teal: #14B8A6;
+  --bg-dark: #06090e;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --border-glow: rgba(255, 255, 255, 0.08);
+  --violet: #8b5cf6;
+  --indigo: #6366f1;
+  --cyan: #06b6d4;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
 }
 
 body {
-  background: var(--bg) !important;
-  color: var(--ink);
-  font-family: 'Inter', sans-serif;
-}
-
-h1, h2, h3 {
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-}
-
-.btn-primary {
-  background: var(--blue) !important;
-  border: none;
-  border-radius: 10px;
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-.btn-primary:hover {
-  background: #2563EB !important;
-  transform: translateY(-1px);
+  background-color: var(--bg-dark) !important;
+  color: var(--text-main);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 40%);
+  background-attachment: fixed;
 }
 
 .paper-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glow);
+  border-radius: 24px;
+  transition: all 0.3s ease;
 }
 .paper-card:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  transform: translateY(-2px);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-4px);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--violet), var(--indigo)) !important;
+  border: none;
+  border-radius: 12px;
+  color: #fff !important;
 }
 
 .upload-zone {
-  border: 2px dashed var(--border) !important;
-  background: #fff !important;
-  border-radius: 16px;
-  transition: border-color 0.2s ease;
+  background: var(--card-bg) !important;
+  border: 2px dashed var(--border-glow) !important;
+  border-radius: 20px;
 }
-.upload-zone:hover, .upload-zone:focus {
-  border-color: var(--blue) !important;
+.upload-zone:hover {
+  border-color: var(--cyan) !important;
 }
-
-/* colored icon chips - cycle through tool cards */
-.paper-card:nth-child(8n+1) .text-3xl { color: var(--blue); }
-.paper-card:nth-child(8n+2) .text-3xl { color: var(--purple); }
-.paper-card:nth-child(8n+3) .text-3xl { color: var(--orange); }
-.paper-card:nth-child(8n+4) .text-3xl { color: var(--green); }
-.paper-card:nth-child(8n+5) .text-3xl { color: var(--pink); }
-.paper-card:nth-child(8n+6) .text-3xl { color: var(--teal); }
